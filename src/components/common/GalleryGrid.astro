@@ -1,0 +1,28 @@
+---
+import { Image } from "astro:assets";
+import type { GalleryItem } from "@data/content";
+
+interface Props {
+  items: readonly GalleryItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="gallery-grid">
+  {
+    items.map((item) => (
+      <figure class="gallery-item" data-reveal>
+        <Image
+          src={item.image}
+          alt={item.alt}
+          widths={[480, 720, 1080]}
+          sizes="(min-width: 64rem) 58vw, (min-width: 40rem) 50vw, 100vw"
+          format="webp"
+          loading="lazy"
+        />
+        <figcaption class="gallery-item__label">{item.title}</figcaption>
+      </figure>
+    ))
+  }
+</div>

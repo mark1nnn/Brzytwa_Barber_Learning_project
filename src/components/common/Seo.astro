@@ -1,0 +1,34 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string | undefined;
+  noindex?: boolean;
+  ogImage: string;
+}
+
+const { title, description, canonicalPath, noindex = false, ogImage } = Astro.props;
+const site = Astro.site ?? new URL("https://example.invalid");
+const normalizedCanonicalPath =
+  canonicalPath === "/" ? "/" : canonicalPath ? `${canonicalPath.replace(/\/+$/, "")}/` : undefined;
+const canonicalUrl = normalizedCanonicalPath ? new URL(normalizedCanonicalPath, site) : undefined;
+const ogImageUrl = new URL(ogImage, site);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
+{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pl_PL" />
+<meta property="og:site_name" content="Brzytwa Barber" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:alt" content="Wnętrze Brzytwa Barber" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+<link rel="sitemap" href="/sitemap-index.xml" />

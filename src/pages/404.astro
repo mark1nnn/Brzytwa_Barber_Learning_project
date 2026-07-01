@@ -1,0 +1,26 @@
+---
+import ButtonLink from "@components/common/ButtonLink.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Nie znaleziono strony — Brzytwa Barber"
+  description="Strona, której szukasz, nie istnieje lub została przeniesiona."
+  noindex
+>
+  <section class="error-page">
+    <div class="container--narrow">
+      <p class="error-page__code" aria-hidden="true">404</p>
+      <p class="eyebrow" style="justify-content: center">Nie znaleziono strony</p>
+      <h1>Ta ścieżka prowadzi donikąd.</h1>
+      <p>
+        Adres mógł się zmienić albo zawiera błąd. Wróć na stronę główną lub sprawdź nasze
+        usługi.
+      </p>
+      <div class="button-row" style="justify-content: center">
+        <ButtonLink href="/">Strona główna</ButtonLink>
+        <ButtonLink href="/uslugi" variant="secondary">Usługi</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

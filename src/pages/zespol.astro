@@ -1,0 +1,55 @@
+---
+import BarberCard from "@components/common/BarberCard.astro";
+import Breadcrumbs from "@components/common/Breadcrumbs.astro";
+import ButtonLink from "@components/common/ButtonLink.astro";
+import { barbers } from "@data/content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Zespół barberów — Brzytwa Barber Katowice"
+  description="Poznaj demonstracyjny zespół Brzytwa Barber w Katowicach i wybierz specjalistę od strzyżenia, brody lub kompletnej metamorfozy."
+  canonicalPath="/zespol"
+>
+  <header class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: "Zespół" }]} />
+      <p class="eyebrow">Nasz zespół</p>
+      <h1>Trzy spojrzenia. Jeden standard.</h1>
+      <p class="lede">
+        Poznaj demonstracyjny skład Brzytwa Barber. Każdy barber ma własne specjalizacje,
+        ale wszystkich łączy uważna konsultacja i precyzja.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="team-grid">
+        {barbers.map((barber) => <BarberCard barber={barber} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft section--line">
+    <div class="container intro-grid">
+      <div>
+        <p class="eyebrow">Wspólna metoda</p>
+        <h2>Najpierw słuchamy.</h2>
+      </div>
+      <div>
+        <p class="lede">
+          Dobre cięcie wynika z rozmowy o włosach, codziennym rytmie i efekcie, który chcesz
+          osiągnąć.
+        </p>
+        <p>
+          Specjalizacje pomagają wybrać barbera, ale nie ograniczają usługi. Jeśli nie masz
+          pewności, możesz zacząć od wyboru dogodnego terminu, a szczegóły ustalić na miejscu.
+        </p>
+        <ButtonLink href="/rezerwacja" variant="text">
+          Jak będzie działać rezerwacja <span aria-hidden="true">↗</span>
+        </ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

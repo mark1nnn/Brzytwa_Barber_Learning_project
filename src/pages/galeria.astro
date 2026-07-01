@@ -1,0 +1,47 @@
+---
+import Breadcrumbs from "@components/common/Breadcrumbs.astro";
+import ButtonLink from "@components/common/ButtonLink.astro";
+import GalleryGrid from "@components/common/GalleryGrid.astro";
+import { galleryItems } from "@data/content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Galeria barbershopu — Brzytwa Barber Katowice"
+  description="Zobacz wnętrze, stanowiska i sposób pracy Brzytwa Barber — nowoczesnego barbershopu w Katowicach."
+  canonicalPath="/galeria"
+>
+  <header class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: "Galeria" }]} />
+      <p class="eyebrow">Galeria</p>
+      <h1>Przestrzeń, detal, rzemiosło.</h1>
+      <p class="lede">
+        Demonstracyjna oprawa wizualna przyszłego salonu: spokojne wnętrze, dobre światło i
+        stanowiska przygotowane do precyzyjnej pracy.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <GalleryGrid items={galleryItems} />
+    </div>
+  </section>
+
+  <section class="section section--soft section--line">
+    <div class="container">
+      <div class="cta-panel">
+        <div>
+          <p class="eyebrow">Zobacz na żywo</p>
+          <h2>Twój fotel będzie gotowy.</h2>
+          <p>
+            Przed każdą wizytą przygotowujemy czyste stanowisko, narzędzia i czas potrzebny na
+            dokładną pracę.
+          </p>
+        </div>
+        <ButtonLink href="/kontakt">Kontakt</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

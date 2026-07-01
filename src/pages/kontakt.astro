@@ -1,0 +1,100 @@
+---
+import Breadcrumbs from "@components/common/Breadcrumbs.astro";
+import { isPlaceholder, siteConfig } from "@config/site";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Kontakt — Brzytwa Barber Katowice"
+  description="Dane kontaktowe, adres i godziny otwarcia Brzytwa Barber w Katowicach. Dane techniczne zostaną uzupełnione przed publikacją."
+  canonicalPath="/kontakt"
+>
+  <header class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: "Kontakt" }]} />
+      <p class="eyebrow">Kontakt</p>
+      <h1>Znajdź chwilę dla siebie.</h1>
+      <p class="lede">
+        Brzytwa Barber powstaje w Katowicach. Dane poniżej pozostają bezpiecznymi
+        placeholderami do czasu potwierdzenia właściwego adresu i kanałów kontaktu.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="info-card">
+        <p class="eyebrow">Brzytwa Barber</p>
+        <h2>Dane salonu</h2>
+        <address>
+          <dl class="contact-list">
+            <div>
+              <dt>Adres</dt>
+              <dd>{siteConfig.contact.address}</dd>
+            </div>
+            <div>
+              <dt>Telefon</dt>
+              <dd>
+                {
+                  isPlaceholder(siteConfig.contact.phone) ? (
+                    siteConfig.contact.phone
+                  ) : (
+                    <a href={`tel:${siteConfig.contact.phone}`}>{siteConfig.contact.phone}</a>
+                  )
+                }
+              </dd>
+            </div>
+            <div>
+              <dt>E-mail</dt>
+              <dd>
+                {
+                  isPlaceholder(siteConfig.contact.email) ? (
+                    siteConfig.contact.email
+                  ) : (
+                    <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+                  )
+                }
+              </dd>
+            </div>
+            <div>
+              <dt>NIP</dt>
+              <dd>{siteConfig.contact.taxId}</dd>
+            </div>
+          </dl>
+        </address>
+        <p class="placeholder-note" style="margin-top: var(--space-5)">
+          Placeholdery nie są aktywnymi linkami. Prawidłowe dane trzeba wprowadzić w
+          centralnej konfiguracji przed uruchomieniem strony.
+        </p>
+      </div>
+
+      <div class="map-placeholder" role="img" aria-label="Miejsce na mapę dojazdu">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path fill="none" stroke="currentColor" stroke-width="1.5" d="M16 29s9-8.1 9-17a9 9 0 1 0-18 0c0 8.9 9 17 9 17Z"></path>
+          <circle cx="16" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+        </svg>
+        <h2>Mapa pojawi się po potwierdzeniu adresu.</h2>
+        <p>Nie osadzamy fikcyjnej lokalizacji ani zewnętrznego trackera na etapie pierwszym.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft section--line">
+    <div class="container intro-grid">
+      <div>
+        <p class="eyebrow">Godziny otwarcia</p>
+        <h2>Pracujemy w Twoim rytmie.</h2>
+      </div>
+      <dl class="hours">
+        {
+          siteConfig.businessHours.map((item) => (
+            <div>
+              <dt>{item.days}</dt>
+              <dd class:list={{ "is-closed": item.closed }}>{item.hours}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+</BaseLayout>

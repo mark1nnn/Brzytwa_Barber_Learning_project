@@ -1,0 +1,89 @@
+---
+import Breadcrumbs from "@components/common/Breadcrumbs.astro";
+import { siteConfig } from "@config/site";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Rezerwacja wizyty — Brzytwa Barber Katowice"
+  description="Sprawdź planowany proces rezerwacji wizyty w Brzytwa Barber Katowice. System zapisów online zostanie uruchomiony w kolejnych etapach."
+  canonicalPath="/rezerwacja"
+>
+  <header class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: "Rezerwacja" }]} />
+      <span class="status-badge">Strona informacyjna</span>
+      <p class="eyebrow" style="margin-top: var(--space-4)">Rezerwacja</p>
+      <h1>Zapisy online są w przygotowaniu.</h1>
+      <p class="lede">
+        Na tym etapie nie przyjmujemy jeszcze rezerwacji przez stronę. Poniżej pokazujemy
+        docelowy, prosty proces — bez pozorowania działającego formularza.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container booking-grid">
+      <div class="info-card">
+        <h2>Jak będzie wyglądać rezerwacja?</h2>
+        <ol class="steps">
+          <li>
+            <h3>Wybierz usługę</h3>
+            <p>Zobaczysz cenę, czas trwania oraz dostępnych barberów.</p>
+          </li>
+          <li>
+            <h3>Wybierz barbera i termin</h3>
+            <p>Wolne godziny będą obliczane na serwerze w strefie Europe/Warsaw.</p>
+          </li>
+          <li>
+            <h3>Podaj dane kontaktowe</h3>
+            <p>Poprosimy tylko o dane potrzebne do obsługi wizyty i potwierdzenia.</p>
+          </li>
+          <li>
+            <h3>Odbierz potwierdzenie</h3>
+            <p>Po zapisie otrzymasz kod oraz najważniejsze informacje w wiadomości e-mail.</p>
+          </li>
+        </ol>
+        <span class="button" aria-disabled="true">Rezerwacja jeszcze nieaktywna</span>
+      </div>
+
+      <aside class="info-card" aria-labelledby="booking-hours">
+        <p class="eyebrow">Godziny salonu</p>
+        <h2 id="booking-hours">Zaplanuj wizytę.</h2>
+        <dl class="hours">
+          {
+            siteConfig.businessHours.map((item) => (
+              <div>
+                <dt>{item.days}</dt>
+                <dd class:list={{ "is-closed": item.closed }}>{item.hours}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="placeholder-note" style="margin-top: var(--space-5)">
+          Dane kontaktowe mają obecnie wartości techniczne. Zostaną uzupełnione przed
+          publikacją.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--soft section--line">
+    <div class="container intro-grid">
+      <div>
+        <p class="eyebrow">Co dalej</p>
+        <h2>Bezpieczny zapis, nie atrapa.</h2>
+      </div>
+      <div>
+        <p>
+          Działający formularz pojawi się dopiero po przygotowaniu bazy D1, serwerowego
+          silnika dostępności, blokowania terminów, Turnstile i wysyłki potwierdzeń.
+        </p>
+        <p>
+          Dzięki temu wybrany termin nie będzie tylko wizualną obietnicą — zostanie
+          zweryfikowany i zarezerwowany po stronie serwera.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

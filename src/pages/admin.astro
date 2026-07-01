@@ -1,0 +1,27 @@
+---
+import AdminLayout from "@layouts/AdminLayout.astro";
+---
+
+<AdminLayout
+  title="Panel administracyjny — Brzytwa Barber"
+  description="Techniczna strona przyszłego panelu administracyjnego Brzytwa Barber."
+>
+  <section class="admin-placeholder" aria-labelledby="admin-title">
+    <div class="admin-placeholder__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.5" d="M7.5 10V7a4.5 4.5 0 0 1 9 0v3m-11 0h13v10h-13V10Z"></path>
+      </svg>
+    </div>
+    <p class="eyebrow">Panel administracyjny</p>
+    <h1 id="admin-title">Panel nie jest jeszcze aktywny.</h1>
+    <p>
+      Ta strona nie wyświetla danych, nie symuluje logowania i nie stanowi zabezpieczonego
+      panelu. Funkcje administracyjne pojawią się po wdrożeniu API oraz Cloudflare Access.
+    </p>
+    <p class="placeholder-note">
+      Strona ma ustawienie <strong>noindex, nofollow</strong>, ale sama dyrektywa robots nie
+      zastępuje kontroli dostępu.
+    </p>
+    <a class="text-link" href="/">← Wróć do strony publicznej</a>
+  </section>
+</AdminLayout>

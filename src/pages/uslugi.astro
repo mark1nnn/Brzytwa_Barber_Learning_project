@@ -1,0 +1,49 @@
+---
+import Breadcrumbs from "@components/common/Breadcrumbs.astro";
+import ButtonLink from "@components/common/ButtonLink.astro";
+import ServiceCard from "@components/common/ServiceCard.astro";
+import { services } from "@data/content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Usługi i cennik — Brzytwa Barber Katowice"
+  description="Sprawdź usługi Brzytwa Barber w Katowicach: strzyżenie męskie, broda, combo, strzyżenie dziecięce i golenie brzytwą."
+  canonicalPath="/uslugi"
+>
+  <header class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: "Usługi" }]} />
+      <p class="eyebrow">Usługi i cennik</p>
+      <h1>Wybierz usługę dla siebie.</h1>
+      <p class="lede">
+        Każda wizyta zaczyna się od krótkiej konsultacji. Podane ceny i czasy są częścią
+        demonstracyjnej oferty etapu pierwszego.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="service-grid service-grid--all">
+        {services.map((service) => <ServiceCard service={service} showLink />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft section--line">
+    <div class="container">
+      <div class="cta-panel">
+        <div>
+          <p class="eyebrow">Nie wiesz, co wybrać?</p>
+          <h2>Zacznij od konsultacji.</h2>
+          <p>
+            Opowiedz barberowi o swoim celu i codziennej pielęgnacji. Dobór techniki i formy
+            ustalimy przed rozpoczęciem pracy.
+          </p>
+        </div>
+        <ButtonLink href="/rezerwacja">Sprawdź rezerwację</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import type { BarberPreview } from "@data/content";
+
+interface Props {
+  barber: BarberPreview;
+}
+
+const { barber } = Astro.props;
+---
+
+<article class="barber-card">
+  <div class="barber-card__image">
+    <Image
+      src={barber.image}
+      alt={barber.imageAlt}
+      widths={[360, 520, 720]}
+      sizes="(min-width: 64rem) 31vw, (min-width: 40rem) 48vw, 100vw"
+      format="webp"
+      loading="lazy"
+    />
+  </div>
+  <div class="barber-card__body">
+    <p class="eyebrow">{barber.role}</p>
+    <h3>{barber.name}</h3>
+    <p>{barber.bio}</p>
+    <ul class="tag-list" aria-label={`Specjalizacje: ${barber.name}`}>
+      {barber.specialties.map((specialty) => <li>{specialty}</li>)}
+    </ul>
+  </div>
+</article>

@@ -1,0 +1,54 @@
+---
+import { getImage } from "astro:assets";
+
+import Footer from "@components/common/Footer.astro";
+import Header from "@components/common/Header.astro";
+import Seo from "@components/common/Seo.astro";
+import { heroImage } from "@data/content";
+import "@styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string | undefined;
+  noindex?: boolean;
+  bodyClass?: string;
+}
+
+const { title, description, canonicalPath, noindex = false, bodyClass } = Astro.props;
+const ogImage = await getImage({
+  src: heroImage,
+  width: 1200,
+  format: "webp",
+});
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111210" />
+    <meta name="color-scheme" content="dark" />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+    <Seo
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      noindex={noindex}
+      ogImage={ogImage.src}
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main-content">Przejdź do treści</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import "../scripts/site";
+    </script>
+  </body>
+</html>

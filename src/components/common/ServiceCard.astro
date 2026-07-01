@@ -1,0 +1,28 @@
+---
+import ButtonLink from "./ButtonLink.astro";
+import type { ServicePreview } from "@data/content";
+import { formatPrice } from "@data/content";
+
+interface Props {
+  service: ServicePreview;
+  showLink?: boolean;
+}
+
+const { service, showLink = false } = Astro.props;
+---
+
+<article class="service-card" id={service.slug}>
+  <div class="service-card__meta">
+    <span>{service.durationMinutes} min</span>
+    <strong>{formatPrice(service.priceGrosze)}</strong>
+  </div>
+  <h3>{service.name}</h3>
+  <p>{showLink ? service.description : service.shortDescription}</p>
+  {
+    showLink && (
+      <ButtonLink href="/rezerwacja" variant="text" aria-label={`Przejdź do rezerwacji: ${service.name}`}>
+        Wybierz usługę <span aria-hidden="true">↗</span>
+      </ButtonLink>
+    )
+  }
+</article>

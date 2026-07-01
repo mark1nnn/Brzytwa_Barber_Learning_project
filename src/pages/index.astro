@@ -1,0 +1,166 @@
+---
+import { Image } from "astro:assets";
+
+import BarberCard from "@components/common/BarberCard.astro";
+import ButtonLink from "@components/common/ButtonLink.astro";
+import GalleryGrid from "@components/common/GalleryGrid.astro";
+import ServiceCard from "@components/common/ServiceCard.astro";
+import { siteConfig } from "@config/site";
+import { barbers, galleryItems, heroImage, services } from "@data/content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Barber Katowice — Brzytwa Barber"
+  description="Brzytwa Barber w Katowicach: precyzyjne strzyżenie męskie, pielęgnacja brody i spokojne rzemiosło w nowoczesnym wydaniu."
+  canonicalPath="/"
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media">
+      <Image
+        src={heroImage}
+        alt="Barber wykonujący precyzyjne strzyżenie w nowoczesnym salonie"
+        widths={[640, 960, 1440, 1920]}
+        sizes="100vw"
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="container hero__inner">
+      <div class="hero__content" data-reveal>
+        <p class="eyebrow">Barbershop · Katowice</p>
+        <h1 id="hero-title">Precyzja w każdym detalu.</h1>
+        <p>
+          Dobre strzyżenie nie potrzebuje pośpiechu. Słuchamy, doradzamy i budujemy formę,
+          która działa także po wyjściu z fotela.
+        </p>
+        <div class="button-row">
+          <ButtonLink href="/rezerwacja">Sprawdź rezerwację</ButtonLink>
+          <ButtonLink href="/uslugi" variant="secondary">Poznaj usługi</ButtonLink>
+        </div>
+        <div class="hero__note" aria-label="Najważniejsze informacje">
+          <span>Centrum Katowic</span>
+          <span>Pon.–pt. 09:00–20:00</span>
+          <span>Bez pośpiechu</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container intro-grid">
+      <div>
+        <p class="eyebrow">Nasze podejście</p>
+        <h2>Rzemiosło zamiast schematów.</h2>
+      </div>
+      <div class="intro-grid__copy">
+        <p class="lede">
+          Każda głowa, broda i codzienny rytm są inne. Dlatego zaczynamy od rozmowy, a nie od
+          gotowego szablonu.
+        </p>
+        <p>
+          Łączymy klasyczne techniki z nowoczesnym spojrzeniem na formę. Efekt ma być
+          precyzyjny, wygodny i łatwy do utrzymania — bez niepotrzebnego komplikowania.
+        </p>
+        <ul class="feature-list">
+          <li>Konsultacja przed rozpoczęciem usługi</li>
+          <li>Forma dopasowana do włosów i rysów twarzy</li>
+          <li>Praktyczne wskazówki do pielęgnacji w domu</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft section--line" aria-labelledby="services-title">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Usługi</p>
+          <h2 id="services-title">Konkretny efekt. Jasne zasady.</h2>
+        </div>
+        <p>
+          Najczęściej wybierane usługi. Czas i cena są widoczne przed wizytą — bez
+          niespodzianek przy fotelu.
+        </p>
+      </div>
+      <div class="service-grid">
+        {services.slice(0, 3).map((service) => <ServiceCard service={service} />)}
+      </div>
+      <div class="button-row" style="margin-top: var(--space-5)">
+        <ButtonLink href="/uslugi" variant="secondary">Zobacz pełny cennik</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="team-title">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Zespół</p>
+          <h2 id="team-title">Wybierz swojego barbera.</h2>
+        </div>
+        <p>
+          Różne specjalizacje, wspólny standard pracy. Poznaj osoby, które zadbają o Twój
+          styl.
+        </p>
+      </div>
+      <div class="team-grid">
+        {barbers.map((barber) => <BarberCard barber={barber} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft section--line" aria-labelledby="gallery-title">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Przestrzeń</p>
+          <h2 id="gallery-title">Miejsce stworzone do dobrej pracy.</h2>
+        </div>
+        <p>
+          Spokojne wnętrze, przemyślane stanowiska i narzędzia przygotowane przed każdą
+          wizytą.
+        </p>
+      </div>
+      <GalleryGrid items={galleryItems} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-panel">
+        <div>
+          <p class="eyebrow">Twoja kolej</p>
+          <h2>Dobry moment na zmianę.</h2>
+          <p>
+            Poznaj proces rezerwacji i sprawdź, co przygotowujemy przed uruchomieniem zapisów
+            online.
+          </p>
+        </div>
+        <ButtonLink href="/rezerwacja">Przejdź do rezerwacji</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft section--line" aria-labelledby="hours-title">
+    <div class="container intro-grid">
+      <div>
+        <p class="eyebrow">Odwiedź nas</p>
+        <h2 id="hours-title">Brzytwa Barber, Katowice.</h2>
+        <p>{siteConfig.contact.address}</p>
+        <ButtonLink href="/kontakt" variant="text">Dane kontaktowe <span aria-hidden="true">↗</span></ButtonLink>
+      </div>
+      <dl class="hours">
+        {
+          siteConfig.businessHours.map((item) => (
+            <div>
+              <dt>{item.days}</dt>
+              <dd class:list={{ "is-closed": item.closed }}>{item.hours}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+</BaseLayout>

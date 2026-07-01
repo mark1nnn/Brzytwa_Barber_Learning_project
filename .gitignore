@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# Astro build and cache
+dist/
+.astro/
+
+# Cloudflare local state
+.wrangler/
+
+# local environment files
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# test and coverage output
+coverage/
+playwright-report/
+test-results/
+tmp/
+
+# editor and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# logs
+*.log
+npm-debug.log*
