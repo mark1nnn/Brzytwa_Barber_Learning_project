@@ -1,0 +1,11 @@
+{
+  "extends": "../functions/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [
+    "../functions/types.d.ts",
+    "../functions/**/*.ts",
+    "./**/*.ts"
+  ]
+}

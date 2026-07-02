@@ -55,7 +55,7 @@ describe('readJsonBody', () => {
         contentType === undefined ? undefined : { 'Content-Type': contentType };
       const request = new Request('https://example.invalid/api/test', {
         method: 'POST',
-        headers,
+        headers: headers ?? {},
         body: '{}',
       });
       const error = await captureApiError(readJsonBody(request));

@@ -14,16 +14,14 @@ const CUSTOMER_PHONE_MESSAGE = 'Podaj prawidłowy polski numer telefonu.';
 const CUSTOMER_EMAIL_MESSAGE = 'Podaj prawidłowy adres e-mail.';
 const LOCAL_DATE_MESSAGE = 'Podaj prawidłową datę.';
 const UTC_TIMESTAMP_MESSAGE = 'Podaj prawidłowy znacznik czasu UTC.';
+const POSITIVE_INTEGER_ID_MESSAGE = 'Identyfikator musi być dodatnią liczbą całkowitą.';
 
 const CUSTOMER_NAME_PATTERN = /^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$/u;
 
 export const positiveIntegerIdSchema = z
-  .union([z.number(), z.string().regex(/^[1-9]\d*$/)])
+  .union([z.number(), z.string().regex(/^[1-9]\d*$/, POSITIVE_INTEGER_ID_MESSAGE)])
   .transform((value) => (typeof value === 'number' ? value : Number(value)))
-  .refine(
-    (value) => Number.isSafeInteger(value) && value > 0,
-    'Identyfikator musi być dodatnią liczbą całkowitą.',
-  );
+  .refine((value) => Number.isSafeInteger(value) && value > 0, POSITIVE_INTEGER_ID_MESSAGE);
 
 export const localDateSchema = z.string().refine(isValidLocalDate, LOCAL_DATE_MESSAGE);
 

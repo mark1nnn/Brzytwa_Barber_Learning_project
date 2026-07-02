@@ -50,3 +50,64 @@ export interface HealthResponse {
   timezone: 'Europe/Warsaw';
   timestamp: string;
 }
+
+export interface ServiceRow {
+  id: number;
+  slug: string;
+  name: string;
+  description: string;
+  duration_minutes: number;
+  price_grosze: number;
+  sort_order: number;
+}
+
+export interface PublicService {
+  id: number;
+  slug: string;
+  name: string;
+  description: string;
+  durationMinutes: number;
+  priceGrosze: number;
+}
+
+export interface ServicesResponse {
+  services: PublicService[];
+}
+
+export interface ActiveServiceRow {
+  id: number;
+}
+
+export interface BarberServiceRow {
+  barber_id: number;
+  barber_slug: string;
+  barber_name: string;
+  barber_bio: string;
+  barber_image_path: string;
+  service_id: number;
+  service_slug: string;
+  service_name: string;
+  service_duration_minutes: number;
+  service_price_grosze: number;
+}
+
+export interface PublicBarberService {
+  id: number;
+  slug: string;
+  name: string;
+  durationMinutes: number;
+  priceGrosze: number;
+}
+
+export interface PublicBarber {
+  id: number;
+  slug: string;
+  name: string;
+  bio: string;
+  imagePath: string;
+  services: PublicBarberService[];
+}
+
+export interface BarbersResponse {
+  barbers: PublicBarber[];
+}

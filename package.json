@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check && npm run functions:check",
+    "check": "astro check && npm run functions:check && npm run tests:check",
     "build": "npm run check && astro build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -20,6 +20,7 @@
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:unit:watch": "vitest tests/unit",
+    "tests:check": "tsc -p tests/tsconfig.json --noEmit",
     "d1:migrations:list:local": "wrangler d1 migrations list DB --local",
     "d1:migrations:apply:local": "wrangler d1 migrations apply DB --local",
     "d1:migrations:list:remote": "wrangler d1 migrations list DB --remote",

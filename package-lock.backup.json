@@ -113,9 +113,6 @@
       "cpu": [
         "arm64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "MIT",
       "optional": true,
       "os": [
@@ -131,9 +128,6 @@
       "integrity": "sha512-PjwRmKgMFDsFhg82g0poXlIY8Qn3fMA3hXjaR0coJWJzTJsRH9ATU0j2ocigjtU1h3vL/yR7yLUxGj/lTCq73g==",
       "cpu": [
         "arm64"
-      ],
-      "libc": [
-        "musl"
       ],
       "license": "MIT",
       "optional": true,
@@ -151,9 +145,6 @@
       "cpu": [
         "x64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "MIT",
       "optional": true,
       "os": [
@@ -169,9 +160,6 @@
       "integrity": "sha512-AEt+bRw8PfImCcyRH1lpXVB8CdmQ1K/wPo5u99iec4/U/XdNvQZ715YVuNzIJpbJXelgQeZ5H2+Ea7XwRyWY5g==",
       "cpu": [
         "x64"
-      ],
-      "libc": [
-        "musl"
       ],
       "license": "MIT",
       "optional": true,
@@ -438,9 +426,6 @@
       "cpu": [
         "arm64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "optional": true,
       "os": [
         "linux"
@@ -452,9 +437,6 @@
       "integrity": "sha512-Wjzu9hmmAbfmDkBfPI1VdZygJtYz9uYZQnkEyrXi6S2JFi+2pXQ1A5irj38bqm0IZmWcTbk0cVG4NZnPdtVNJA==",
       "cpu": [
         "arm64"
-      ],
-      "libc": [
-        "musl"
       ],
       "optional": true,
       "os": [
@@ -468,9 +450,6 @@
       "cpu": [
         "x64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "optional": true,
       "os": [
         "linux"
@@ -482,9 +461,6 @@
       "integrity": "sha512-T4gxhXve3zyNAZesrXAd/rDZOGRkbfFIUFld4TGsw6BsjoIteCcDji6IMqeXyaWEVSykY2X8Eid2hr6aXGYAaw==",
       "cpu": [
         "x64"
-      ],
-      "libc": [
-        "musl"
       ],
       "optional": true,
       "os": [
@@ -507,6 +483,12 @@
       "engines": {
         "node": ">=14.0.0"
       }
+    },
+    "node_modules/@bruits/satteri-wasm32-wasi/node_modules/@emnapi/core": {
+      "optional": true
+    },
+    "node_modules/@bruits/satteri-wasm32-wasi/node_modules/@emnapi/runtime": {
+      "optional": true
     },
     "node_modules/@bruits/satteri-win32-arm64-msvc": {
       "version": "0.9.4",
@@ -757,37 +739,6 @@
       "integrity": "sha512-ZsZ2I9Vzso3Ho/pjZFsmmZ++FWeEd/txqybHTm4OgaZzdS8V9V/YYWQwg5TC38Z7uLWUV1vavpLLbjJtKubR1A==",
       "dev": true,
       "license": "MIT"
-    },
-    "node_modules/@emnapi/core": {
-      "version": "1.11.1",
-      "resolved": "https://registry.npmjs.org/@emnapi/core/-/core-1.11.1.tgz",
-      "integrity": "sha512-RSvbQmHzdKzNsLYa/wHrbc3KN4sYLKAdPZxqiM2HATqv/SBk2/ENSHpvXGaLOMcsAyz0poEGqkmmKYG3OWiJEQ==",
-      "license": "MIT",
-      "optional": true,
-      "dependencies": {
-        "@emnapi/wasi-threads": "1.2.2",
-        "tslib": "^2.4.0"
-      }
-    },
-    "node_modules/@emnapi/runtime": {
-      "version": "1.11.1",
-      "resolved": "https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.11.1.tgz",
-      "integrity": "sha512-vgj7R3y3Wgx24IQaGPA/R6YFXLHVMOZ0uVEyIQPaWs+rd1AzfEMXlAC22FYwO1XkKR6NPsq7mUandH8oIRdZFw==",
-      "license": "MIT",
-      "optional": true,
-      "dependencies": {
-        "tslib": "^2.4.0"
-      }
-    },
-    "node_modules/@emnapi/wasi-threads": {
-      "version": "1.2.2",
-      "resolved": "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.2.tgz",
-      "integrity": "sha512-c95qOXkHdydNKhscBTebqEC1CVAZpyqOfVfBzQ1qgzyl3gfeldUjIggDbIZgDKsHLgnsM+igH7TJ/eAasaVuMA==",
-      "license": "MIT",
-      "optional": true,
-      "dependencies": {
-        "tslib": "^2.4.0"
-      }
     },
     "node_modules/@esbuild/aix-ppc64": {
       "version": "0.28.1",
@@ -1317,9 +1268,6 @@
       "cpu": [
         "arm"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -1335,9 +1283,6 @@
       "integrity": "sha512-dqVSFynCox4C/J8kT16V7SIFAns0IjgLwkvYT7p8LQVmJ5OS5b6tI9IGflxTeuBS//zXeFIUbwt5dwxyZ17cnA==",
       "cpu": [
         "arm64"
-      ],
-      "libc": [
-        "glibc"
       ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
@@ -1355,9 +1300,6 @@
       "cpu": [
         "ppc64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -1373,9 +1315,6 @@
       "integrity": "sha512-bsb4rI+NldGOsXuej2r8OdSS8+zXDVaCWxyWrcv6kneTOlgAHtZABRzBBCwdsPiD90J4myNJuHpg6kA20ImW/w==",
       "cpu": [
         "riscv64"
-      ],
-      "libc": [
-        "glibc"
       ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
@@ -1393,9 +1332,6 @@
       "cpu": [
         "s390x"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -1411,9 +1347,6 @@
       "integrity": "sha512-ITPEtgffGJ0S6G9dRyw/366tJQqFRcHWPHhC+Stpg3Z8AEMrDrTr2lhdz4f/Y/HMbRh//7Z5mBzEpVdi62Oc3w==",
       "cpu": [
         "x64"
-      ],
-      "libc": [
-        "glibc"
       ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
@@ -1431,9 +1364,6 @@
       "cpu": [
         "arm64"
       ],
-      "libc": [
-        "musl"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -1450,9 +1380,6 @@
       "cpu": [
         "x64"
       ],
-      "libc": [
-        "musl"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -1468,9 +1395,6 @@
       "integrity": "sha512-affVWCTLooy8TSxbDx2qkzuDeaWLNVBA+P//FNBirHsXpP2fuBhk5AuboYUnrDnzoXes8GFjpTx0SBFOCRg+FA==",
       "cpu": [
         "arm"
-      ],
-      "libc": [
-        "glibc"
       ],
       "license": "Apache-2.0",
       "optional": true,
@@ -1494,9 +1418,6 @@
       "cpu": [
         "arm64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -1518,9 +1439,6 @@
       "integrity": "sha512-sMd8rDxmpLOwv/7N44klFjOD5DUO7FLdjiXDI0hoxYaf7Ar262dQIEkosE98bps+5HPLtp/EvNqeqQtOycP/IA==",
       "cpu": [
         "ppc64"
-      ],
-      "libc": [
-        "glibc"
       ],
       "license": "Apache-2.0",
       "optional": true,
@@ -1544,9 +1462,6 @@
       "cpu": [
         "riscv64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -1568,9 +1483,6 @@
       "integrity": "sha512-KgAxQ0DxpNOq1rG2t5cgTgShJFGSuU7XO45cqC+1NVOuZnP6tlgZRuSYOfNupGkHID0o3cJOsw4DVeJpMovcGw==",
       "cpu": [
         "s390x"
-      ],
-      "libc": [
-        "glibc"
       ],
       "license": "Apache-2.0",
       "optional": true,
@@ -1594,9 +1506,6 @@
       "cpu": [
         "x64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -1619,9 +1528,6 @@
       "cpu": [
         "arm64"
       ],
-      "libc": [
-        "musl"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -1643,9 +1549,6 @@
       "integrity": "sha512-6O1NPKcDVj9QEdg7Hx549EX8U0rp6yXQERqru6yRN7fGBn32UvIRJUlWnk+8xDCiG76hXVBbX82NZ/ZKr0euIg==",
       "cpu": [
         "x64"
-      ],
-      "libc": [
-        "musl"
       ],
       "license": "Apache-2.0",
       "optional": true,
@@ -1677,6 +1580,9 @@
       "funding": {
         "url": "https://opencollective.com/libvips"
       }
+    },
+    "node_modules/@img/sharp-wasm32/node_modules/@emnapi/runtime": {
+      "optional": true
     },
     "node_modules/@img/sharp-webcontainers-wasm32": {
       "version": "0.35.3",
@@ -1942,9 +1848,6 @@
       "cpu": [
         "arm64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "MIT",
       "optional": true,
       "os": [
@@ -1960,9 +1863,6 @@
       "integrity": "sha512-lZVym0PuHE1KZ22gmFTC15lAkrg9iTszR617oYRB/iPY1A56ywoJzVKOJBKaot5RiikCObmur6pogpse3gRcng==",
       "cpu": [
         "arm64"
-      ],
-      "libc": [
-        "musl"
       ],
       "license": "MIT",
       "optional": true,
@@ -1980,9 +1880,6 @@
       "cpu": [
         "ppc64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "MIT",
       "optional": true,
       "os": [
@@ -1998,9 +1895,6 @@
       "integrity": "sha512-0WIRnL1Uw4BvTZRLQt+PVgo6ZKTJadlC2btP+/EOXv2f/DWbY0rEgl+y834mIVwP1FkTlWVTrGGJXf12lru7EQ==",
       "cpu": [
         "s390x"
-      ],
-      "libc": [
-        "glibc"
       ],
       "license": "MIT",
       "optional": true,
@@ -2018,9 +1912,6 @@
       "cpu": [
         "x64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "MIT",
       "optional": true,
       "os": [
@@ -2036,9 +1927,6 @@
       "integrity": "sha512-rT6yQcxUuXs4CnbofqwHRRV0iem349rLMYpTjkgQGLjrY4ado/eDzwPZPTCgTOlF6Nkp8NEv70yLMTn6qkWxsQ==",
       "cpu": [
         "x64"
-      ],
-      "libc": [
-        "musl"
       ],
       "license": "MIT",
       "optional": true,
@@ -2604,6 +2492,7 @@
       "integrity": "sha512-Thbli+OlOj+iMPYFBVBfJ3OmCAnaSyNn4M1vz9T6Gka5Jt9ba/HIR56joy65tY6kx/FCF5VXNB819Y7/GUrBGA==",
       "dev": true,
       "license": "MIT",
+      "peer": true,
       "dependencies": {
         "fast-deep-equal": "^3.1.3",
         "fast-uri": "^3.0.1",
@@ -3261,9 +3150,9 @@
       }
     },
     "node_modules/es-module-lexer": {
-      "version": "2.3.0",
-      "resolved": "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-2.3.0.tgz",
-      "integrity": "sha512-KLdwQm2NvGLDkQDCGvmiQrhkd0JbMzXthwQAUgWjQuQdBLFa3eiBP5arXZyA+f8x+x7OXgud6bq2rxjGtHV2tw==",
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-2.2.0.tgz",
+      "integrity": "sha512-3lGxdTXCLfe1MYfTz1y2ksAAUM4NAOP6rPEjxGJVKO7TZ5+tvHCaQWGpC4Y3IXvW3ece0Cz1cIP4FWBxOnGCTQ==",
       "license": "MIT"
     },
     "node_modules/esbuild": {
@@ -3847,9 +3736,6 @@
       "cpu": [
         "arm64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "MPL-2.0",
       "optional": true,
       "os": [
@@ -3869,9 +3755,6 @@
       "integrity": "sha512-UpQkoenr4UJEzgVIYpI80lDFvRmPVg6oqboNHfoH4CQIfNA+HOrZ7Mo7KZP02dC6LjghPQJeBsvXhJod/wnIBg==",
       "cpu": [
         "arm64"
-      ],
-      "libc": [
-        "musl"
       ],
       "license": "MPL-2.0",
       "optional": true,
@@ -3893,9 +3776,6 @@
       "cpu": [
         "x64"
       ],
-      "libc": [
-        "glibc"
-      ],
       "license": "MPL-2.0",
       "optional": true,
       "os": [
@@ -3915,9 +3795,6 @@
       "integrity": "sha512-bYcLp+Vb0awsiXg/80uCRezCYHNg1/l3mt0gzHnWV9XP1W5sKa5/TCdGWaR/zBM2PeF/HbsQv/j2URNOiVuxWg==",
       "cpu": [
         "x64"
-      ],
-      "libc": [
-        "musl"
       ],
       "license": "MPL-2.0",
       "optional": true,
@@ -4226,9 +4103,6 @@
         "arm"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -4246,9 +4120,6 @@
         "arm64"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -4266,9 +4137,6 @@
         "ppc64"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -4286,9 +4154,6 @@
         "riscv64"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -4306,9 +4171,6 @@
         "s390x"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -4326,9 +4188,6 @@
         "x64"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -4346,9 +4205,6 @@
         "arm64"
       ],
       "dev": true,
-      "libc": [
-        "musl"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -4366,9 +4222,6 @@
         "x64"
       ],
       "dev": true,
-      "libc": [
-        "musl"
-      ],
       "license": "LGPL-3.0-or-later",
       "optional": true,
       "os": [
@@ -4386,9 +4239,6 @@
         "arm"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -4412,9 +4262,6 @@
         "arm64"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -4438,9 +4285,6 @@
         "ppc64"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -4464,9 +4308,6 @@
         "riscv64"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -4490,9 +4331,6 @@
         "s390x"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -4516,9 +4354,6 @@
         "x64"
       ],
       "dev": true,
-      "libc": [
-        "glibc"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -4542,9 +4377,6 @@
         "arm64"
       ],
       "dev": true,
-      "libc": [
-        "musl"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -4568,9 +4400,6 @@
         "x64"
       ],
       "dev": true,
-      "libc": [
-        "musl"
-      ],
       "license": "Apache-2.0",
       "optional": true,
       "os": [
@@ -4930,9 +4759,9 @@
       "license": "ISC"
     },
     "node_modules/picomatch": {
-      "version": "4.0.5",
-      "resolved": "https://registry.npmjs.org/picomatch/-/picomatch-4.0.5.tgz",
-      "integrity": "sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==",
+      "version": "4.0.4",
+      "resolved": "https://registry.npmjs.org/picomatch/-/picomatch-4.0.4.tgz",
+      "integrity": "sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==",
       "license": "MIT",
       "engines": {
         "node": ">=12"
@@ -4975,6 +4804,7 @@
       "integrity": "sha512-yWG/o/4oJfo036EKAfK6ACAoDOfHeRHx4tuxkfBZiauURiaSmYwlpOr5LQqKtIkRD2z1PLteme2WoxEnj4tHTg==",
       "dev": true,
       "license": "MIT",
+      "peer": true,
       "bin": {
         "prettier": "bin/prettier.cjs"
       },
@@ -4991,6 +4821,7 @@
       "integrity": "sha512-RiBETaaP9veVstE4vUwSIcdATj6dKmXljouXc/DDNwBSPTp8FRkLGDSGFClKsAFeeg+13SB0Z1JZvbD76bigJw==",
       "dev": true,
       "license": "MIT",
+      "peer": true,
       "dependencies": {
         "@astrojs/compiler": "^2.9.1",
         "prettier": "^3.0.0",
@@ -5555,6 +5386,7 @@
       "integrity": "sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==",
       "dev": true,
       "license": "Apache-2.0",
+      "peer": true,
       "bin": {
         "tsc": "bin/tsc",
         "tsserver": "bin/tsserver"
@@ -5613,6 +5445,7 @@
       "integrity": "sha512-i7qRCmY42zmCwnYlh9H2SvLEypEFGye5iRmEMKjcGi7zk9UquigRjFtTLz0TYqr0ZGLZhaMHl/foy1bZR+Cwlw==",
       "dev": true,
       "license": "MIT",
+      "peer": true,
       "dependencies": {
         "pathe": "^2.0.3"
       }
@@ -5872,6 +5705,7 @@
       "resolved": "https://registry.npmjs.org/vite/-/vite-8.1.2.tgz",
       "integrity": "sha512-6YYPbRXTxx6bRXmOn7XdnQAy5DQNHhDgtjhDHI13oe4pY93kkcdGJWxpGwOm++/Wh0QpQhDrpIoVMrmrsI5AGQ==",
       "license": "MIT",
+      "peer": true,
       "dependencies": {
         "lightningcss": "^1.32.0",
         "picomatch": "^4.0.4",
@@ -6369,6 +6203,7 @@
       "dev": true,
       "hasInstallScript": true,
       "license": "Apache-2.0",
+      "peer": true,
       "bin": {
         "workerd": "bin/workerd"
       },

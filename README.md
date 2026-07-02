@@ -3,9 +3,10 @@
 Учебный, но рассчитанный на реальное развёртывание сайт польского барбершопа в
 Катовице. Проект строится поэтапно: текущая версия содержит статическую
 Astro-основу, готовую схему Cloudflare D1 и фундамент Cloudflare Pages
-Functions. Единственный динамический маршрут сейчас — технический
-`GET /api/health`. Рабочая запись, business API, Turnstile, Resend и
-административные операции будут добавляться отдельными завершёнными этапами.
+Functions. Динамические маршруты включают технический `GET /api/health` и
+публичные каталоги услуг и мастеров. Availability, рабочая запись, Turnstile,
+Resend и административные операции будут добавляться отдельными завершёнными
+этапами.
 
 Интерфейс и пользовательские сообщения написаны на польском языке. Техническая
 документация в этом репозитории — на русском.
@@ -59,9 +60,16 @@ Functions. Единственный динамический маршрут се
 - `GET /api/health`;
 - unit tests общей backend-логики.
 
-**Этап 4 — ещё не реализован.** Пока отсутствуют services, barbers,
-availability, booking и admin API, Turnstile, Resend, рабочая форма записи и
-рабочая административная панель.
+**Этап 4 — завершён.** Реализованы:
+
+- `GET /api/public/services` с активными услугами в стабильном порядке;
+- `GET /api/public/barbers` с активными мастерами и сгруппированными услугами;
+- фильтр мастеров по положительному integer `serviceId`;
+- prepared statements и `.bind()` для пользовательского параметра;
+- mock-D1 тесты маршрутов, преобразования snake_case в camelCase и ошибок.
+
+Availability, booking и admin API, Turnstile, Resend, рабочая форма записи и
+рабочая административная панель ещё отсутствуют.
 
 ## Архитектура
 
@@ -372,6 +380,85 @@ Endpoint проверяет Pages runtime и D1 статическим prepared 
 `METHOD_NOT_ALLOWED`. Ошибка D1 преобразуется в HTTP 503
 `DATABASE_UNAVAILABLE`, а внутренняя причина остаётся в server logs.
 
+## Этап 4 — public services и barbers API
+
+### Услуги
+
+```text
+GET /api/public/services
+```
+
+Endpoint не принимает параметры и возвращает только активные услуги в порядке
+`sort_order, id`. Внутренние поля `active`, `sort_order`, timestamps и SQL-имена
+в snake_case наружу не передаются.
+
+```json
+{
+  "success": true,
+  "data": {
+    "services": [
+      {
+        "id": 1,
+        "slug": "strzyzenie-meskie",
+        "name": "Strzyżenie męskie",
+        "description": "Konsultacja, precyzyjne cięcie...",
+        "durationMinutes": 45,
+        "priceGrosze": 7000
+      }
+    ]
+  }
+}
+```
+
+### Мастера
+
+```text
+GET /api/public/barbers
+GET /api/public/barbers?serviceId=1
+```
+
+Без параметра возвращаются активные мастера и их активные услуги. Положительный
+integer `serviceId` ограничивает список мастерами, которые выполняют выбранную
+активную услугу; внутри каждого мастера по-прежнему возвращается полный список
+его активных услуг.
+
+```json
+{
+  "success": true,
+  "data": {
+    "barbers": [
+      {
+        "id": 1,
+        "slug": "michal",
+        "name": "Michał",
+        "bio": "Ceni klasyczne formy...",
+        "imagePath": "barber-michal.png",
+        "services": [
+          {
+            "id": 1,
+            "slug": "strzyzenie-meskie",
+            "name": "Strzyżenie męskie",
+            "durationMinutes": 45,
+            "priceGrosze": 7000
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Ошибки public API:
+
+- неверный `serviceId` — HTTP 400 `VALIDATION_ERROR`;
+- отсутствующая или неактивная услуга — HTTP 404 `SERVICФE_NOT_FOUND`;
+- любой метод кроме GET — HTTP 405 `METHOD_NOT_ALLOWED` и `Allow: GET`;
+- ошибка D1 — безопасный HTTP 500 `INTERNAL_ERROR` через общий middleware.
+
+Для запроса с фильтром выполняется не более двух D1-запросов: проверка активной
+услуги и общая выборка мастеров со связями. `serviceId` в обоих случаях
+передаётся через `.bind()` и не интерполируется в SQL.
+
 ### Unit tests
 
 ```powershell
@@ -381,8 +468,9 @@ npm.cmd run test:unit:watch
 ```
 
 Unit tests выполняются в обычном Node environment и проверяют API responses,
-middleware, JSON parser, Zod validation, DST/time helpers, HTML escaping, UUID и
-booking code. Cloudflare Workers test pool и Playwright не подключены.
+middleware, JSON parser, Zod validation, DST/time helpers, HTML escaping, UUID,
+booking code и public services/barbers handlers с mock D1. Cloudflare Workers
+test pool и Playwright не подключены.
 
 ## D1 architecture
 
@@ -485,19 +573,21 @@ npm.cmd run build
 
 ## Маршруты
 
-| Маршрут                 | Назначение                                                 |
-| ----------------------- | ---------------------------------------------------------- |
-| `/`                     | Главная страница                                           |
-| `/uslugi`               | Услуги и демонстрационный прайс                            |
-| `/zespol`               | Демонстрационный состав команды                            |
-| `/galeria`              | Галерея                                                    |
-| `/rezerwacja`           | Описание будущего процесса записи                          |
-| `/kontakt`              | Контакты и часы работы                                     |
-| `/polityka-prywatnosci` | Рабочий юридический шаблон                                 |
-| `/regulamin-rezerwacji` | Рабочий юридический шаблон                                 |
-| `/404`                  | Статическая страница ошибки                                |
-| `/admin`                | Неактивная страница будущей панели                         |
-| `/api/health`           | Единственный endpoint этапа 3: проверка Pages runtime и D1 |
+| Маршрут                 | Назначение                                       |
+| ----------------------- | ------------------------------------------------ |
+| `/`                     | Главная страница                                 |
+| `/uslugi`               | Услуги и демонстрационный прайс                  |
+| `/zespol`               | Демонстрационный состав команды                  |
+| `/galeria`              | Галерея                                          |
+| `/rezerwacja`           | Описание будущего процесса записи                |
+| `/kontakt`              | Контакты и часы работы                           |
+| `/polityka-prywatnosci` | Рабочий юридический шаблон                       |
+| `/regulamin-rezerwacji` | Рабочий юридический шаблон                       |
+| `/404`                  | Статическая страница ошибки                      |
+| `/admin`                | Неактивная страница будущей панели               |
+| `/api/health`           | Проверка Pages runtime и D1                      |
+| `/api/public/services`  | Активные услуги                                  |
+| `/api/public/barbers`   | Активные мастера и их услуги; фильтр `serviceId` |
 
 `/admin` и `/404` получают `noindex, nofollow` и исключаются из sitemap.
 Это не является механизмом безопасности. Настоящий `/admin` должен быть закрыт
@@ -728,6 +818,9 @@ functions/
   api/
     _middleware.ts     API error boundary, headers и request ID
     health.ts          GET /api/health
+    public/
+      services.ts      GET /api/public/services
+      barbers.ts       GET /api/public/barbers
   _shared/             responses, errors, validation, time, IDs и D1 helpers
   tsconfig.json        отдельная strict TypeScript-конфигурация
   types.d.ts           generated Cloudflare runtime types
@@ -750,8 +843,8 @@ wrangler.jsonc
 .gitattributes         LF для текста, binary для изображений и шрифтов
 ```
 
-Business endpoints этапа 4 в `functions` отсутствуют: нет services, barbers,
-availability, booking и admin routes.
+Public services и barbers endpoints этапа 4 находятся в `functions/api/public`.
+Availability, booking и admin routes ещё отсутствуют.
 
 ## Troubleshooting
 
@@ -808,20 +901,14 @@ appointments, промокоды, loyalty system, push-уведомления и
 
 ## Следующие этапы
 
-Этапы 1, 2, подготовительный этап 2.5 и этап 3 завершены. Этап 4 ещё не
-реализован:
-
-1. Public services и barbers API.
-2. Серверный availability engine.
-3. Создание записи и атомарное slot locking.
-4. Turnstile и Resend.
-5. Многошаговый booking UI.
-6. Admin API и admin UI.
-7. Security headers, Access и WAF-документация.
-8. Финальные SEO, RODO, integration/E2E tests и deployment-документация.
+Этапы 1–4 завершены. Этап 5 должен добавить серверный availability engine:
+проверку услуги и мастера, рабочие часы, блокировки, существующие записи,
+горизонт бронирования и корректную работу с `Europe/Warsaw`. Создание записи,
+атомарное slot locking, Turnstile, Resend, booking UI и admin API остаются для
+последующих этапов.
 
 ## Лицензия
 
 Существующий файл `LICENSE` содержит Apache License 2.0 и не изменялся в рамках
-этапов 1, 2, 2.5 и 3. `.gitattributes` предотвращает бессмысленные EOL-diff и не
+этапов 1, 2, 2.5, 3 и 4. `.gitattributes` предотвращает бессмысленные EOL-diff и не
 применяет текстовую нормализацию к изображениям и шрифтам.
