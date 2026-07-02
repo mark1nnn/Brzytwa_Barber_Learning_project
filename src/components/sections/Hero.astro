@@ -1,5 +1,7 @@
 ---
 import ButtonLink from "@components/common/ButtonLink.astro";
+import scissorsImage from "@assets/images/barbershop-scissors.webp";
+import { Image } from "astro:assets";
 ---
 
 <section class="hero" aria-labelledby="hero-title" data-premium-hero>
@@ -35,12 +37,15 @@ import ButtonLink from "@components/common/ButtonLink.astro";
     <div class="hero__float" data-hero-float>
       <div class="hero__reveal" data-hero-reveal>
         <picture>
-          <source srcset="/images/barbershop-scissors.webp" type="image/webp" />
-          <img
+          <Image
             class="hero__scissors"
-            src="/images/barbershop-scissors.webp"
-            width="1672"
-            height="941"
+            src={scissorsImage}
+            widths={[640, 1024, 1672]}
+            sizes="(max-width: 47.99rem) calc(100vw - 1rem), 100vw"
+            width={1672}
+            height={941}
+            format="webp"
+            quality={78}
             alt="Profesjonalne metalowe nożyczki fryzjerskie w złotym świetle"
             loading="eager"
             decoding="async"
