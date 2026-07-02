@@ -2,5 +2,14 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "brzytwa-barber",
   "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-07-01"
+  "compatibility_date": "2026-07-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "brzytwa-barber-preview",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "preview_database_id": "DB",
+      "migrations_dir": "migrations"
+    }
+  ]
 }

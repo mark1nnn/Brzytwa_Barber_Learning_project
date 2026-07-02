@@ -55,7 +55,7 @@ export const services: readonly ServicePreview[] = [
     priceGrosze: 5000,
   },
   {
-    slug: "combo",
+    slug: "combo-wlosy-broda",
     name: "Combo: włosy + broda",
     shortDescription: "Pełna usługa dla spójnego, dopracowanego efektu.",
     description:

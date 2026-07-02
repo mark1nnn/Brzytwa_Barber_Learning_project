@@ -12,7 +12,12 @@
     "check": "astro check",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "pages:dev": "npm run build && wrangler pages dev dist"
+    "pages:dev": "npm run build && wrangler pages dev dist",
+    "d1:migrations:list:local": "wrangler d1 migrations list DB --local",
+    "d1:migrations:apply:local": "wrangler d1 migrations apply DB --local",
+    "d1:migrations:list:remote": "wrangler d1 migrations list DB --remote",
+    "d1:migrations:apply:remote": "wrangler d1 migrations apply DB --remote",
+    "d1:query:local": "wrangler d1 execute DB --local"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",
