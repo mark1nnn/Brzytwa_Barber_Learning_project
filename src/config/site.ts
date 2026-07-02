@@ -36,44 +36,44 @@ export interface SiteConfig {
   businessHours: readonly BusinessHours[];
 }
 
-const fallbackSiteUrl = "https://example.invalid";
+const fallbackSiteUrl = 'https://example.invalid';
 
 export const siteConfig: SiteConfig = {
-  name: "Brzytwa Barber",
-  shortName: "Brzytwa",
-  city: "Katowice",
-  locale: "pl-PL",
-  language: "pl",
-  timeZone: "Europe/Warsaw",
-  currency: "PLN",
+  name: 'Brzytwa Barber',
+  shortName: 'Brzytwa',
+  city: 'Katowice',
+  locale: 'pl-PL',
+  language: 'pl',
+  timeZone: 'Europe/Warsaw',
+  currency: 'PLN',
   description:
-    "Nowoczesny barbershop w Katowicach: strzyżenie męskie, pielęgnacja brody i świadome rzemiosło bez zbędnego pośpiechu.",
+    'Nowoczesny barbershop w Katowicach: strzyżenie męskie, pielęgnacja brody i świadome rzemiosło bez zbędnego pośpiechu.',
   siteUrl: import.meta.env.PUBLIC_SITE_URL || fallbackSiteUrl,
   contact: {
-    phone: "[NUMER_TELEFONU]",
-    email: "[EMAIL]",
-    address: "[ADRES]",
-    taxId: "[NIP]",
-    domain: "[DOMENA]",
-    instagramUrl: "[INSTAGRAM_URL]",
-    facebookUrl: "[FACEBOOK_URL]",
-    googleMapsUrl: "[GOOGLE_MAPS_URL]",
+    phone: '[NUMER_TELEFONU]',
+    email: '[EMAIL]',
+    address: '[ADRES]',
+    taxId: '[NIP]',
+    domain: '[DOMENA]',
+    instagramUrl: '[INSTAGRAM_URL]',
+    facebookUrl: '[FACEBOOK_URL]',
+    googleMapsUrl: '[GOOGLE_MAPS_URL]',
   },
   navigation: [
-    { label: "Start", href: "/" },
-    { label: "Usługi", href: "/uslugi" },
-    { label: "Zespół", href: "/zespol" },
-    { label: "Galeria", href: "/galeria" },
-    { label: "Kontakt", href: "/kontakt" },
+    { label: 'Start', href: '/' },
+    { label: 'Usługi', href: '/uslugi' },
+    { label: 'Zespół', href: '/zespol' },
+    { label: 'Galeria', href: '/galeria' },
+    { label: 'Kontakt', href: '/kontakt' },
   ],
   legalNavigation: [
-    { label: "Polityka prywatności", href: "/polityka-prywatnosci" },
-    { label: "Regulamin rezerwacji", href: "/regulamin-rezerwacji" },
+    { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
+    { label: 'Regulamin rezerwacji', href: '/regulamin-rezerwacji' },
   ],
   businessHours: [
-    { days: "Poniedziałek–Piątek", hours: "09:00–20:00" },
-    { days: "Sobota", hours: "09:00–16:00" },
-    { days: "Niedziela", hours: "Zamknięte", closed: true },
+    { days: 'Poniedziałek–Piątek', hours: '09:00–20:00' },
+    { days: 'Sobota', hours: '09:00–16:00' },
+    { days: 'Niedziela', hours: 'Zamknięte', closed: true },
   ],
 };
 

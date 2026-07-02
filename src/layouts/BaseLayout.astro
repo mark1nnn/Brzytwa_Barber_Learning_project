@@ -1,11 +1,11 @@
 ---
-import { getImage } from "astro:assets";
+import { getImage } from 'astro:assets';
 
-import Footer from "@components/common/Footer.astro";
-import Header from "@components/common/Header.astro";
-import Seo from "@components/common/Seo.astro";
-import { heroImage } from "@data/content";
-import "@styles/global.css";
+import Footer from '@components/common/Footer.astro';
+import Header from '@components/common/Header.astro';
+import Seo from '@components/common/Seo.astro';
+import { heroImage } from '@data/content';
+import '@styles/global.css';
 
 interface Props {
   title: string;
@@ -19,7 +19,7 @@ const { title, description, canonicalPath, noindex = false, bodyClass } = Astro.
 const ogImage = await getImage({
   src: heroImage,
   width: 1200,
-  format: "webp",
+  format: 'webp',
 });
 ---
 
@@ -30,7 +30,9 @@ const ogImage = await getImage({
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#111210" />
     <meta name="color-scheme" content="dark" />
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <Seo
       title={title}
       description={description}
@@ -48,7 +50,7 @@ const ogImage = await getImage({
     </main>
     <Footer />
     <script>
-      import "../scripts/site";
+      import '../scripts/site';
     </script>
   </body>
 </html>

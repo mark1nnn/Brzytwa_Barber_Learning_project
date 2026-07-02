@@ -41,8 +41,8 @@ const createParticle = (width: number, height: number): Particle => {
 };
 
 export const initHeroParticles = (canvas: HTMLCanvasElement): HeroParticleController => {
-  const context = canvas.getContext("2d");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const context = canvas.getContext('2d');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let particles: Particle[] = [];
   let frameId = 0;
   let width = 0;
@@ -110,8 +110,8 @@ export const initHeroParticles = (canvas: HTMLCanvasElement): HeroParticleContro
 
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(canvas);
-  reducedMotion.addEventListener("change", syncAnimation);
-  document.addEventListener("visibilitychange", syncAnimation);
+  reducedMotion.addEventListener('change', syncAnimation);
+  document.addEventListener('visibilitychange', syncAnimation);
   resize();
   start();
 
@@ -120,8 +120,8 @@ export const initHeroParticles = (canvas: HTMLCanvasElement): HeroParticleContro
       destroyed = true;
       stop();
       resizeObserver.disconnect();
-      reducedMotion.removeEventListener("change", syncAnimation);
-      document.removeEventListener("visibilitychange", syncAnimation);
+      reducedMotion.removeEventListener('change', syncAnimation);
+      document.removeEventListener('visibilitychange', syncAnimation);
     },
   };
 };

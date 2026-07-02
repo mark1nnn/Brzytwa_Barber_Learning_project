@@ -1,7 +1,7 @@
 ---
-import Breadcrumbs from "@components/common/Breadcrumbs.astro";
-import { siteConfig } from "@config/site";
-import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import { siteConfig } from '@config/site';
+import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
@@ -11,13 +11,13 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 >
   <header class="page-hero">
     <div class="container">
-      <Breadcrumbs items={[{ label: "Rezerwacja" }]} />
+      <Breadcrumbs items={[{ label: 'Rezerwacja' }]} />
       <span class="status-badge">Strona informacyjna</span>
       <p class="eyebrow" style="margin-top: var(--space-4)">Rezerwacja</p>
       <h1>Zapisy online są w przygotowaniu.</h1>
       <p class="lede">
-        Obecnie nie przyjmujemy jeszcze rezerwacji przez stronę. Poniżej pokazujemy docelowy,
-        prosty proces — bez pozorowania działającego formularza.
+        Obecnie nie przyjmujemy jeszcze rezerwacji przez stronę. Poniżej pokazujemy docelowy, prosty
+        proces — bez pozorowania działającego formularza.
       </p>
     </div>
   </header>
@@ -55,14 +55,13 @@ import BaseLayout from "@layouts/BaseLayout.astro";
             siteConfig.businessHours.map((item) => (
               <div>
                 <dt>{item.days}</dt>
-                <dd class:list={{ "is-closed": item.closed }}>{item.hours}</dd>
+                <dd class:list={{ 'is-closed': item.closed }}>{item.hours}</dd>
               </div>
             ))
           }
         </dl>
         <p class="placeholder-note" style="margin-top: var(--space-5)">
-          Dane kontaktowe mają obecnie wartości techniczne. Zostaną uzupełnione przed
-          publikacją.
+          Dane kontaktowe mają obecnie wartości techniczne. Zostaną uzupełnione przed publikacją.
         </p>
       </aside>
     </div>
@@ -76,12 +75,12 @@ import BaseLayout from "@layouts/BaseLayout.astro";
       </div>
       <div>
         <p>
-          Działający formularz pojawi się dopiero po przygotowaniu bazy D1, serwerowego
-          silnika dostępności, blokowania terminów, Turnstile i wysyłki potwierdzeń.
+          Działający formularz pojawi się dopiero po przygotowaniu bazy D1, serwerowego silnika
+          dostępności, blokowania terminów, Turnstile i wysyłki potwierdzeń.
         </p>
         <p>
-          Dzięki temu wybrany termin nie będzie tylko wizualną obietnicą — zostanie
-          zweryfikowany i zarezerwowany po stronie serwera.
+          Dzięki temu wybrany termin nie będzie tylko wizualną obietnicą — zostanie zweryfikowany i
+          zarezerwowany po stronie serwera.
         </p>
       </div>
     </div>

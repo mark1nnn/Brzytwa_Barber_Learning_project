@@ -1,14 +1,13 @@
-import { Temporal } from "@js-temporal/polyfill";
+import { Temporal } from '@js-temporal/polyfill';
 
-import { APP_TIMEZONE } from "./constants";
+import { APP_TIMEZONE } from './constants';
 
 const LOCAL_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const LOCAL_TIME_PATTERN = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
-const UTC_TIMESTAMP_PATTERN =
-  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+const UTC_TIMESTAMP_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 
 function padTwoDigits(value: number): string {
-  return value.toString().padStart(2, "0");
+  return value.toString().padStart(2, '0');
 }
 
 export function isValidLocalDate(value: string): boolean {
@@ -17,9 +16,11 @@ export function isValidLocalDate(value: string): boolean {
   }
 
   try {
-    return Temporal.PlainDate.from(value, {
-      overflow: "reject",
-    }).toString() === value;
+    return (
+      Temporal.PlainDate.from(value, {
+        overflow: 'reject',
+      }).toString() === value
+    );
   } catch {
     return false;
   }
@@ -33,7 +34,7 @@ export function isValidUtcTimestamp(value: string): boolean {
   try {
     return (
       Temporal.Instant.from(value).toString({
-        smallestUnit: "millisecond",
+        smallestUnit: 'millisecond',
       }) === value
     );
   } catch {
@@ -43,18 +44,18 @@ export function isValidUtcTimestamp(value: string): boolean {
 
 export function localDateTimeToUtc(date: string, time: string): string {
   if (!isValidLocalDate(date) || !LOCAL_TIME_PATTERN.test(time)) {
-    throw new RangeError("Invalid Warsaw local date or time.");
+    throw new RangeError('Invalid Warsaw local date or time.');
   }
 
   const localDateTime = Temporal.PlainDateTime.from(`${date}T${time}`, {
-    overflow: "reject",
+    overflow: 'reject',
   });
   const zonedDateTime = localDateTime.toZonedDateTime(APP_TIMEZONE, {
-    disambiguation: "reject",
+    disambiguation: 'reject',
   });
 
   return zonedDateTime.toInstant().toString({
-    smallestUnit: "millisecond",
+    smallestUnit: 'millisecond',
   });
 }
 
@@ -63,12 +64,10 @@ export function formatUtcInWarsaw(utcTimestamp: string): {
   localTime: string;
 } {
   if (!isValidUtcTimestamp(utcTimestamp)) {
-    throw new RangeError("Invalid UTC timestamp.");
+    throw new RangeError('Invalid UTC timestamp.');
   }
 
-  const local = Temporal.Instant.from(utcTimestamp).toZonedDateTimeISO(
-    APP_TIMEZONE,
-  );
+  const local = Temporal.Instant.from(utcTimestamp).toZonedDateTimeISO(APP_TIMEZONE);
 
   return {
     localDate: `${padTwoDigits(local.day)}.${padTwoDigits(local.month)}.${local.year}`,
@@ -78,27 +77,22 @@ export function formatUtcInWarsaw(utcTimestamp: string): {
 
 export function getWarsawIsoWeekday(utcTimestamp: string): number {
   if (!isValidUtcTimestamp(utcTimestamp)) {
-    throw new RangeError("Invalid UTC timestamp.");
+    throw new RangeError('Invalid UTC timestamp.');
   }
 
-  return Temporal.Instant.from(utcTimestamp).toZonedDateTimeISO(
-    APP_TIMEZONE,
-  ).dayOfWeek;
+  return Temporal.Instant.from(utcTimestamp).toZonedDateTimeISO(APP_TIMEZONE).dayOfWeek;
 }
 
-export function addMinutesToUtc(
-  utcTimestamp: string,
-  minutes: number,
-): string {
+export function addMinutesToUtc(utcTimestamp: string, minutes: number): string {
   if (!isValidUtcTimestamp(utcTimestamp)) {
-    throw new RangeError("Invalid UTC timestamp.");
+    throw new RangeError('Invalid UTC timestamp.');
   }
 
   if (!Number.isSafeInteger(minutes)) {
-    throw new RangeError("Minutes must be a safe integer.");
+    throw new RangeError('Minutes must be a safe integer.');
   }
 
   return Temporal.Instant.from(utcTimestamp)
     .add({ minutes })
-    .toString({ smallestUnit: "millisecond" });
+    .toString({ smallestUnit: 'millisecond' });
 }

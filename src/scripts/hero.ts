@@ -1,31 +1,31 @@
-import { gsap } from "gsap";
+import { gsap } from 'gsap';
 
-import { initHeroParticles } from "./hero-particles";
+import { initHeroParticles } from './hero-particles';
 
 const setupHero = (): void => {
-  const hero = document.querySelector<HTMLElement>("[data-premium-hero]");
+  const hero = document.querySelector<HTMLElement>('[data-premium-hero]');
 
-  if (!hero || hero.dataset.heroReady === "true") return;
+  if (!hero || hero.dataset.heroReady === 'true') return;
 
-  const reveal = hero.querySelector<HTMLElement>("[data-hero-reveal]");
-  const floatLayer = hero.querySelector<HTMLElement>("[data-hero-float]");
-  const parallaxLayer = hero.querySelector<HTMLElement>("[data-hero-parallax]");
-  const canvas = hero.querySelector<HTMLCanvasElement>("[data-hero-particles]");
+  const reveal = hero.querySelector<HTMLElement>('[data-hero-reveal]');
+  const floatLayer = hero.querySelector<HTMLElement>('[data-hero-float]');
+  const parallaxLayer = hero.querySelector<HTMLElement>('[data-hero-parallax]');
+  const canvas = hero.querySelector<HTMLCanvasElement>('[data-hero-particles]');
 
   if (!reveal || !floatLayer || !parallaxLayer || !canvas) return;
 
-  hero.dataset.heroReady = "true";
+  hero.dataset.heroReady = 'true';
   const particles = initHeroParticles(canvas);
   const media = gsap.matchMedia();
 
   media.add(
     {
-      animate: "(prefers-reduced-motion: no-preference)",
-      reduce: "(prefers-reduced-motion: reduce)",
+      animate: '(prefers-reduced-motion: no-preference)',
+      reduce: '(prefers-reduced-motion: reduce)',
     },
     (context) => {
       if (context.conditions?.reduce) {
-        gsap.set(reveal, { autoAlpha: 1, clearProps: "transform" });
+        gsap.set(reveal, { autoAlpha: 1, clearProps: 'transform' });
         return;
       }
 
@@ -37,8 +37,8 @@ const setupHero = (): void => {
           scale: 1,
           y: 0,
           duration: 1.45,
-          ease: "power3.out",
-          clearProps: "transform",
+          ease: 'power3.out',
+          clearProps: 'transform',
         },
       );
       const float = gsap.to(floatLayer, {
@@ -48,37 +48,37 @@ const setupHero = (): void => {
         delay: 1.35,
         repeat: -1,
         yoyo: true,
-        ease: "sine.inOut",
+        ease: 'sine.inOut',
       });
 
       const syncGsap = (): void => {
-        const action = document.hidden ? "pause" : "resume";
+        const action = document.hidden ? 'pause' : 'resume';
         intro[action]();
         float[action]();
       };
 
-      document.addEventListener("visibilitychange", syncGsap);
-      return () => document.removeEventListener("visibilitychange", syncGsap);
+      document.addEventListener('visibilitychange', syncGsap);
+      return () => document.removeEventListener('visibilitychange', syncGsap);
     },
   );
 
   media.add(
-    "(prefers-reduced-motion: no-preference) and (min-width: 64rem) and (hover: hover) and (pointer: fine)",
+    '(prefers-reduced-motion: no-preference) and (min-width: 64rem) and (hover: hover) and (pointer: fine)',
     () => {
       gsap.set(parallaxLayer, {
         transformPerspective: 1100,
-        transformOrigin: "68% 50%",
+        transformOrigin: '68% 50%',
       });
 
-      const moveX = gsap.quickTo(parallaxLayer, "x", { duration: 0.85, ease: "power3.out" });
-      const moveY = gsap.quickTo(parallaxLayer, "y", { duration: 0.85, ease: "power3.out" });
-      const rotateX = gsap.quickTo(parallaxLayer, "rotationX", {
+      const moveX = gsap.quickTo(parallaxLayer, 'x', { duration: 0.85, ease: 'power3.out' });
+      const moveY = gsap.quickTo(parallaxLayer, 'y', { duration: 0.85, ease: 'power3.out' });
+      const rotateX = gsap.quickTo(parallaxLayer, 'rotationX', {
         duration: 1,
-        ease: "power3.out",
+        ease: 'power3.out',
       });
-      const rotateY = gsap.quickTo(parallaxLayer, "rotationY", {
+      const rotateY = gsap.quickTo(parallaxLayer, 'rotationY', {
         duration: 1,
-        ease: "power3.out",
+        ease: 'power3.out',
       });
 
       const onPointerMove = (event: PointerEvent): void => {
@@ -99,13 +99,13 @@ const setupHero = (): void => {
         rotateY(0);
       };
 
-      hero.addEventListener("pointermove", onPointerMove);
-      hero.addEventListener("pointerleave", resetParallax);
+      hero.addEventListener('pointermove', onPointerMove);
+      hero.addEventListener('pointerleave', resetParallax);
 
       return () => {
-        hero.removeEventListener("pointermove", onPointerMove);
-        hero.removeEventListener("pointerleave", resetParallax);
-        gsap.set(parallaxLayer, { clearProps: "transform" });
+        hero.removeEventListener('pointermove', onPointerMove);
+        hero.removeEventListener('pointerleave', resetParallax);
+        gsap.set(parallaxLayer, { clearProps: 'transform' });
       };
     },
   );
@@ -114,16 +114,16 @@ const setupHero = (): void => {
     media.revert();
     particles.destroy();
     delete hero.dataset.heroReady;
-    window.removeEventListener("pagehide", destroy);
-    document.removeEventListener("astro:before-swap", destroy);
+    window.removeEventListener('pagehide', destroy);
+    document.removeEventListener('astro:before-swap', destroy);
   };
 
-  window.addEventListener("pagehide", destroy, { once: true });
-  document.addEventListener("astro:before-swap", destroy, { once: true });
+  window.addEventListener('pagehide', destroy, { once: true });
+  document.addEventListener('astro:before-swap', destroy, { once: true });
 };
 
 setupHero();
-document.addEventListener("astro:page-load", setupHero);
-window.addEventListener("pageshow", (event) => {
+document.addEventListener('astro:page-load', setupHero);
+window.addEventListener('pageshow', (event) => {
   if (event.persisted) setupHero();
 });

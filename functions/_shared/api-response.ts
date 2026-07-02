@@ -1,15 +1,10 @@
-import type {
-  ApiErrorCode,
-  ApiFailure,
-  ApiFieldErrors,
-  ApiSuccess,
-} from "./types";
+import type { ApiErrorCode, ApiFailure, ApiFieldErrors, ApiSuccess } from './types';
 
 export const API_RESPONSE_HEADERS = {
-  "Cache-Control": "no-store",
-  "Content-Type": "application/json; charset=utf-8",
-  "Referrer-Policy": "no-referrer",
-  "X-Content-Type-Options": "nosniff",
+  'Cache-Control': 'no-store',
+  'Content-Type': 'application/json; charset=utf-8',
+  'Referrer-Policy': 'no-referrer',
+  'X-Content-Type-Options': 'nosniff',
 } as const;
 
 function createJsonHeaders(source?: HeadersInit): Headers {
@@ -40,16 +35,11 @@ interface JsonErrorOptions {
   fieldErrors?: ApiFieldErrors;
 }
 
-export function jsonError(
-  error: JsonErrorOptions,
-  init: ResponseInit = {},
-): Response {
-  const errorPayload: ApiFailure["error"] = {
+export function jsonError(error: JsonErrorOptions, init: ResponseInit = {}): Response {
+  const errorPayload: ApiFailure['error'] = {
     code: error.code,
     message: error.message,
-    ...(error.fieldErrors === undefined
-      ? {}
-      : { fieldErrors: error.fieldErrors }),
+    ...(error.fieldErrors === undefined ? {} : { fieldErrors: error.fieldErrors }),
   };
   const body: ApiFailure = {
     success: false,

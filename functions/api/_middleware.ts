@@ -1,13 +1,6 @@
-import {
-  API_RESPONSE_HEADERS,
-  jsonError,
-} from "../_shared/api-response";
-import {
-  isApiError,
-} from "../_shared/errors";
-import {
-  API_ERROR_CODES,
-} from "../_shared/types";
+import { API_RESPONSE_HEADERS, jsonError } from '../_shared/api-response';
+import { isApiError } from '../_shared/errors';
+import { API_ERROR_CODES } from '../_shared/types';
 
 interface ApiLogger {
   error(message: string, details: Record<string, unknown>): void;
@@ -35,8 +28,8 @@ function getServerErrorDetails(error: unknown): Record<string, unknown> {
   }
 
   return {
-    errorName: "UnknownError",
-    errorMessage: "Non-Error value thrown.",
+    errorName: 'UnknownError',
+    errorMessage: 'Non-Error value thrown.',
   };
 }
 
@@ -44,12 +37,12 @@ function addApiHeaders(response: Response, requestId: string): Response {
   const headers = new Headers(response.headers);
 
   for (const [name, value] of Object.entries(API_RESPONSE_HEADERS)) {
-    if (name !== "Content-Type") {
+    if (name !== 'Content-Type') {
       headers.set(name, value);
     }
   }
 
-  headers.set("X-Request-Id", requestId);
+  headers.set('X-Request-Id', requestId);
 
   return new Response(response.body, {
     status: response.status,
@@ -58,15 +51,10 @@ function addApiHeaders(response: Response, requestId: string): Response {
   });
 }
 
-export async function handleApiRequest(
-  input: ApiMiddlewareInput,
-): Promise<Response> {
+export async function handleApiRequest(input: ApiMiddlewareInput): Promise<Response> {
   const logger = input.logger ?? defaultLogger;
-  const cfRay = input.request.headers.get("CF-Ray")?.trim();
-  const requestId =
-    cfRay === undefined || cfRay.length === 0
-      ? crypto.randomUUID()
-      : cfRay;
+  const cfRay = input.request.headers.get('CF-Ray')?.trim();
+  const requestId = cfRay === undefined || cfRay.length === 0 ? crypto.randomUUID() : cfRay;
   const pathname = new URL(input.request.url).pathname;
 
   try {
@@ -74,7 +62,7 @@ export async function handleApiRequest(
   } catch (error) {
     if (isApiError(error)) {
       if (error.cause !== undefined) {
-        logger.error("API request failed", {
+        logger.error('API request failed', {
           requestId,
           cfRay,
           method: input.request.method,
@@ -89,9 +77,7 @@ export async function handleApiRequest(
           {
             code: error.code,
             message: error.message,
-            ...(error.fieldErrors === undefined
-              ? {}
-              : { fieldErrors: error.fieldErrors }),
+            ...(error.fieldErrors === undefined ? {} : { fieldErrors: error.fieldErrors }),
           },
           {
             status: error.status,
@@ -102,7 +88,7 @@ export async function handleApiRequest(
       );
     }
 
-    logger.error("Unhandled API error", {
+    logger.error('Unhandled API error', {
       requestId,
       cfRay,
       method: input.request.method,
@@ -114,8 +100,7 @@ export async function handleApiRequest(
       jsonError(
         {
           code: API_ERROR_CODES.INTERNAL_ERROR,
-          message:
-            "Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.",
+          message: 'Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.',
         },
         {
           status: 500,

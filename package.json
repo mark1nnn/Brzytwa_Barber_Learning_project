@@ -11,6 +11,8 @@
     "dev": "astro dev",
     "check": "astro check && npm run functions:check",
     "build": "npm run check && astro build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "preview": "astro preview",
     "pages:dev": "npm run build && wrangler pages dev dist",
     "cf:types": "wrangler types --path=\"./functions/types.d.ts\"",
@@ -33,6 +35,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",
+    "prettier": "3.9.4",
+    "prettier-plugin-astro": "0.14.1",
     "typescript": "6.0.3",
     "vite": "8.1.2",
     "vitest": "4.1.9",

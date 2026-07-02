@@ -9,7 +9,7 @@
       "database_name": "brzytwa-barber-preview",
       "database_id": "REPLACE_WITH_D1_DATABASE_ID",
       "preview_database_id": "DB",
-      "migrations_dir": "migrations"
-    }
-  ]
+      "migrations_dir": "migrations",
+    },
+  ],
 }

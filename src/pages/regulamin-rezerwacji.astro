@@ -1,7 +1,7 @@
 ---
-import Breadcrumbs from "@components/common/Breadcrumbs.astro";
-import { siteConfig } from "@config/site";
-import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import { siteConfig } from '@config/site';
+import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
@@ -11,12 +11,10 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 >
   <header class="page-hero">
     <div class="container">
-      <Breadcrumbs items={[{ label: "Regulamin rezerwacji" }]} />
+      <Breadcrumbs items={[{ label: 'Regulamin rezerwacji' }]} />
       <p class="eyebrow">Dokument prawny</p>
       <h1>Regulamin rezerwacji.</h1>
-      <p class="lede">
-        Techniczny wzór zasad korzystania z planowanego systemu zapisów online.
-      </p>
+      <p class="lede">Techniczny wzór zasad korzystania z planowanego systemu zapisów online.</p>
     </div>
   </header>
 
@@ -24,8 +22,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
     <div class="container--narrow">
       <aside class="legal-notice">
         <strong>Wersja robocza — wymaga zatwierdzenia.</strong><br />
-        Przed publikacją właściciel salonu lub prawnik musi zweryfikować dane firmy, zasady
-        anulowania, płatności, reklamacji i zgodność dokumentu z faktycznym procesem obsługi.
+        Przed publikacją właściciel salonu lub prawnik musi zweryfikować dane firmy, zasady anulowania,
+        płatności, reklamacji i zgodność dokumentu z faktycznym procesem obsługi.
       </aside>
 
       <div class="legal-content">
@@ -39,20 +37,20 @@ import BaseLayout from "@layouts/BaseLayout.astro";
           <p>
             Usługodawcą będzie podmiot wskazany jako administrator salonu, adres:
             <strong>{siteConfig.contact.address}</strong>, NIP:
-            <strong>{siteConfig.contact.taxId}</strong>. Wszystkie wartości w nawiasach
-            kwadratowych są danymi technicznymi do uzupełnienia.
+            <strong>{siteConfig.contact.taxId}</strong>. Wszystkie wartości w nawiasach kwadratowych
+            są danymi technicznymi do uzupełnienia.
           </p>
         </section>
 
         <section>
           <h2>Zakres systemu rezerwacji</h2>
           <p>
-            Po uruchomieniu system umożliwi wybór aktywnej usługi, barbera, dnia i dostępnej
-            godziny oraz podanie danych kontaktowych potrzebnych do potwierdzenia wizyty.
+            Po uruchomieniu system umożliwi wybór aktywnej usługi, barbera, dnia i dostępnej godziny
+            oraz podanie danych kontaktowych potrzebnych do potwierdzenia wizyty.
           </p>
           <p>
-            Dostępność widoczna w interfejsie będzie każdorazowo weryfikowana po stronie
-            serwera. Samo wyświetlenie godziny nie będzie oznaczało jej rezerwacji.
+            Dostępność widoczna w interfejsie będzie każdorazowo weryfikowana po stronie serwera.
+            Samo wyświetlenie godziny nie będzie oznaczało jej rezerwacji.
           </p>
         </section>
 
@@ -62,23 +60,21 @@ import BaseLayout from "@layouts/BaseLayout.astro";
             <li>Klient wybiera usługę, barbera, datę i godzinę.</li>
             <li>Klient podaje prawidłowe dane kontaktowe i akceptuje wymagane informacje.</li>
             <li>System ponownie sprawdza dostępność oraz zapisuje termin.</li>
-            <li>
-              Potwierdzenie wraz z kodem rezerwacji jest wysyłane na podany adres e-mail.
-            </li>
+            <li>Potwierdzenie wraz z kodem rezerwacji jest wysyłane na podany adres e-mail.</li>
           </ol>
           <p>
-            Rezerwacja powinna być uznawana za przyjętą dopiero po wyświetleniu potwierdzenia
-            przez system. Właściciel musi zdecydować, jaki skutek ma ewentualny brak wiadomości
-            e-mail po prawidłowym zapisie.
+            Rezerwacja powinna być uznawana za przyjętą dopiero po wyświetleniu potwierdzenia przez
+            system. Właściciel musi zdecydować, jaki skutek ma ewentualny brak wiadomości e-mail po
+            prawidłowym zapisie.
           </p>
         </section>
 
         <section>
           <h2>Ceny, czas i płatność</h2>
           <p>
-            Przy każdej usłudze system pokaże cenę w PLN oraz przewidywany czas trwania.
-            Projekt MVP nie obejmuje płatności online. Sposób i moment zapłaty w salonie muszą
-            zostać potwierdzone w ostatecznej wersji regulaminu.
+            Przy każdej usłudze system pokaże cenę w PLN oraz przewidywany czas trwania. Projekt MVP
+            nie obejmuje płatności online. Sposób i moment zapłaty w salonie muszą zostać
+            potwierdzone w ostatecznej wersji regulaminu.
           </p>
           <p>
             Jeżeli zakres usługi zmieni się podczas konsultacji, barber powinien poinformować
@@ -89,22 +85,21 @@ import BaseLayout from "@layouts/BaseLayout.astro";
         <section>
           <h2>Anulowanie i zmiana wizyty</h2>
           <p>
-            Docelowy system MVP ma umożliwiać anulowanie wizyty zgodnie z instrukcją przesłaną
-            w potwierdzeniu. Nie przewiduje samodzielnego przenoszenia wizyty przez klienta.
+            Docelowy system MVP ma umożliwiać anulowanie wizyty zgodnie z instrukcją przesłaną w
+            potwierdzeniu. Nie przewiduje samodzielnego przenoszenia wizyty przez klienta.
           </p>
           <p>
-            Właściciel salonu musi ustalić i zatwierdzić minimalny czas na bezkosztowe
-            anulowanie, sposób kontaktu w pilnych sytuacjach oraz konsekwencje powtarzających
-            się nieobecności. Do czasu tej decyzji regulamin nie powinien wprowadzać kar ani
-            opłat.
+            Właściciel salonu musi ustalić i zatwierdzić minimalny czas na bezkosztowe anulowanie,
+            sposób kontaktu w pilnych sytuacjach oraz konsekwencje powtarzających się nieobecności.
+            Do czasu tej decyzji regulamin nie powinien wprowadzać kar ani opłat.
           </p>
         </section>
 
         <section>
           <h2>Spóźnienie i nieobecność</h2>
           <p>
-            Klient powinien przybyć na wizytę punktualnie. Spóźnienie może ograniczyć możliwy
-            zakres usługi, jeżeli jej pełne wykonanie spowodowałoby opóźnienie kolejnych wizyt.
+            Klient powinien przybyć na wizytę punktualnie. Spóźnienie może ograniczyć możliwy zakres
+            usługi, jeżeli jej pełne wykonanie spowodowałoby opóźnienie kolejnych wizyt.
           </p>
           <p>
             Konkretne zasady dotyczące dopuszczalnego spóźnienia i nieobecności wymagają
@@ -120,8 +115,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
             <li>nie rezerwować kilku kolidujących terminów,</li>
             <li>poinformować salon o rezygnacji możliwie wcześnie,</li>
             <li>
-              nie umieszczać w polu uwag danych wrażliwych ani informacji niezwiązanych z
-              wizytą.
+              nie umieszczać w polu uwag danych wrażliwych ani informacji niezwiązanych z wizytą.
             </li>
           </ul>
         </section>
@@ -129,26 +123,26 @@ import BaseLayout from "@layouts/BaseLayout.astro";
         <section>
           <h2>Przerwy techniczne i dostępność</h2>
           <p>
-            Salon może czasowo wyłączyć system z powodu konserwacji, awarii lub aktualizacji.
-            W razie błędu po utworzeniu rezerwacji należy posłużyć się kodem rezerwacji i
-            skontaktować z salonem.
+            Salon może czasowo wyłączyć system z powodu konserwacji, awarii lub aktualizacji. W
+            razie błędu po utworzeniu rezerwacji należy posłużyć się kodem rezerwacji i skontaktować
+            z salonem.
           </p>
           <p>
-            System powinien zapobiegać podwójnej rezerwacji, ale ostateczny dokument musi
-            określić sposób postępowania w sytuacji wyjątkowej awarii lub błędnej konfiguracji.
+            System powinien zapobiegać podwójnej rezerwacji, ale ostateczny dokument musi określić
+            sposób postępowania w sytuacji wyjątkowej awarii lub błędnej konfiguracji.
           </p>
         </section>
 
         <section>
           <h2>Reklamacje</h2>
           <p>
-            Reklamacje dotyczące działania rezerwacji lub wykonanej usługi będzie można
-            zgłaszać na adres <strong>{siteConfig.contact.email}</strong> albo w salonie.
-            Zgłoszenie powinno opisywać problem i, jeśli dotyczy rezerwacji, zawierać jej kod.
+            Reklamacje dotyczące działania rezerwacji lub wykonanej usługi będzie można zgłaszać na
+            adres <strong>{siteConfig.contact.email}</strong> albo w salonie. Zgłoszenie powinno opisywać
+            problem i, jeśli dotyczy rezerwacji, zawierać jej kod.
           </p>
           <p>
-            Termin i szczegółowy tryb odpowiedzi należy ustalić po konsultacji prawnej i
-            dopasować do praw konsumenta.
+            Termin i szczegółowy tryb odpowiedzi należy ustalić po konsultacji prawnej i dopasować
+            do praw konsumenta.
           </p>
         </section>
 
@@ -156,16 +150,16 @@ import BaseLayout from "@layouts/BaseLayout.astro";
           <h2>Dane osobowe</h2>
           <p>
             Dane przekazane przy rezerwacji będą przetwarzane zgodnie z zatwierdzoną
-            <a href="/polityka-prywatnosci">polityką prywatności</a>. Formularz nie powinien
-            służyć do przesyłania danych medycznych ani innych danych szczególnej kategorii.
+            <a href="/polityka-prywatnosci">polityką prywatności</a>. Formularz nie powinien służyć
+            do przesyłania danych medycznych ani innych danych szczególnej kategorii.
           </p>
         </section>
 
         <section>
           <h2>Zmiany regulaminu</h2>
           <p>
-            Ostateczny regulamin powinien zawierać datę wejścia w życie. Zmiany nie powinny
-            naruszać praw związanych z rezerwacjami przyjętymi przed ich opublikowaniem.
+            Ostateczny regulamin powinien zawierać datę wejścia w życie. Zmiany nie powinny naruszać
+            praw związanych z rezerwacjami przyjętymi przed ich opublikowaniem.
           </p>
         </section>
       </div>

@@ -1,7 +1,7 @@
 ---
-import Breadcrumbs from "@components/common/Breadcrumbs.astro";
-import { siteConfig } from "@config/site";
-import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import { siteConfig } from '@config/site';
+import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
@@ -11,12 +11,11 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 >
   <header class="page-hero">
     <div class="container">
-      <Breadcrumbs items={[{ label: "Polityka prywatności" }]} />
+      <Breadcrumbs items={[{ label: 'Polityka prywatności' }]} />
       <p class="eyebrow">Dokument prawny</p>
       <h1>Polityka prywatności.</h1>
       <p class="lede">
-        Techniczny wzór dokumentu przygotowany dla planowanego systemu rezerwacji Brzytwa
-        Barber.
+        Techniczny wzór dokumentu przygotowany dla planowanego systemu rezerwacji Brzytwa Barber.
       </p>
     </div>
   </header>
@@ -25,8 +24,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
     <div class="container--narrow">
       <aside class="legal-notice">
         <strong>Wersja robocza — nie publikować bez weryfikacji.</strong><br />
-        Właściciel salonu lub prawnik powinien uzupełnić dane, okresy przechowywania, listę
-        dostawców i podstawy prawne, a następnie zatwierdzić cały dokument.
+        Właściciel salonu lub prawnik powinien uzupełnić dane, okresy przechowywania, listę dostawców
+        i podstawy prawne, a następnie zatwierdzić cały dokument.
       </aside>
 
       <div class="legal-content">
@@ -40,8 +39,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
           </p>
           <p>
             W sprawach dotyczących prywatności będzie można skontaktować się przez adres
-            <strong>{siteConfig.contact.email}</strong>. Dane te są placeholderami i muszą
-            zostać uzupełnione przed publikacją.
+            <strong>{siteConfig.contact.email}</strong>. Dane te są placeholderami i muszą zostać
+            uzupełnione przed publikacją.
           </p>
         </section>
 
@@ -55,9 +54,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
             <li>opcjonalną krótką wiadomość dotyczącą wizyty.</li>
           </ul>
           <p>
-            System nie powinien zbierać numeru PESEL, adresu domowego, daty urodzenia,
-            danych medycznych ani danych marketingowych, które nie są potrzebne do obsługi
-            wizyty.
+            System nie powinien zbierać numeru PESEL, adresu domowego, daty urodzenia, danych
+            medycznych ani danych marketingowych, które nie są potrzebne do obsługi wizyty.
           </p>
         </section>
 
@@ -69,15 +67,11 @@ import BaseLayout from "@layouts/BaseLayout.astro";
               przyjęcia, potwierdzenia, zmiany statusu lub anulowania rezerwacji — w zakresie
               niezbędnym do wykonania usługi lub działań podjętych na żądanie klienta,
             </li>
+            <li>kontaktu w sprawie konkretnej wizyty oraz obsługi ewentualnych reklamacji,</li>
+            <li>realizacji obowiązków księgowych i prawnych, jeżeli będą miały zastosowanie,</li>
             <li>
-              kontaktu w sprawie konkretnej wizyty oraz obsługi ewentualnych reklamacji,
-            </li>
-            <li>
-              realizacji obowiązków księgowych i prawnych, jeżeli będą miały zastosowanie,
-            </li>
-            <li>
-              zapewnienia bezpieczeństwa systemu i dochodzenia lub obrony roszczeń w ramach
-              prawnie uzasadnionego interesu administratora.
+              zapewnienia bezpieczeństwa systemu i dochodzenia lub obrony roszczeń w ramach prawnie
+              uzasadnionego interesu administratora.
             </li>
           </ul>
           <p>
@@ -89,10 +83,10 @@ import BaseLayout from "@layouts/BaseLayout.astro";
         <section>
           <h2>Odbiorcy i dostawcy technologii</h2>
           <p>
-            Po uruchomieniu systemu dane mogą być powierzane dostawcom hostingu i
-            bezpieczeństwa Cloudflare oraz dostawcy poczty transakcyjnej Resend, wyłącznie w
-            zakresie potrzebnym do działania serwisu. Dostęp mogą otrzymać także podmioty
-            świadczące obsługę IT, księgową lub prawną na podstawie odpowiednich umów.
+            Po uruchomieniu systemu dane mogą być powierzane dostawcom hostingu i bezpieczeństwa
+            Cloudflare oraz dostawcy poczty transakcyjnej Resend, wyłącznie w zakresie potrzebnym do
+            działania serwisu. Dostęp mogą otrzymać także podmioty świadczące obsługę IT, księgową
+            lub prawną na podstawie odpowiednich umów.
           </p>
           <p>
             Przed publikacją należy zweryfikować faktyczną listę dostawców, lokalizacje
@@ -103,13 +97,13 @@ import BaseLayout from "@layouts/BaseLayout.astro";
         <section>
           <h2>Okres przechowywania</h2>
           <p>
-            Dane rezerwacji powinny być przechowywane tylko przez okres potrzebny do obsługi
-            wizyty, rozliczeń, reklamacji i roszczeń. Konkretne terminy muszą zostać ustalone
-            przez administratora po uwzględnieniu obowiązków podatkowych i cywilnoprawnych.
+            Dane rezerwacji powinny być przechowywane tylko przez okres potrzebny do obsługi wizyty,
+            rozliczeń, reklamacji i roszczeń. Konkretne terminy muszą zostać ustalone przez
+            administratora po uwzględnieniu obowiązków podatkowych i cywilnoprawnych.
           </p>
           <p>
-            W projekcie nie należy wpisywać arbitralnych okresów bez potwierdzenia sposobu
-            działania firmy.
+            W projekcie nie należy wpisywać arbitralnych okresów bez potwierdzenia sposobu działania
+            firmy.
           </p>
         </section>
 
@@ -123,17 +117,17 @@ import BaseLayout from "@layouts/BaseLayout.astro";
             <li>wniesienia sprzeciwu wobec przetwarzania opartego na uzasadnionym interesie.</li>
           </ul>
           <p>
-            Osoba może również złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych.
-            Zakres poszczególnych praw zależy od podstawy i celu przetwarzania.
+            Osoba może również złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych. Zakres
+            poszczególnych praw zależy od podstawy i celu przetwarzania.
           </p>
         </section>
 
         <section>
           <h2>Dobrowolność podania danych</h2>
           <p>
-            Podanie danych w formularzu będzie dobrowolne, ale dane oznaczone jako wymagane
-            będą potrzebne do utworzenia i potwierdzenia rezerwacji. Brak tych danych może
-            uniemożliwić zapis online.
+            Podanie danych w formularzu będzie dobrowolne, ale dane oznaczone jako wymagane będą
+            potrzebne do utworzenia i potwierdzenia rezerwacji. Brak tych danych może uniemożliwić
+            zapis online.
           </p>
         </section>
 
@@ -146,26 +140,26 @@ import BaseLayout from "@layouts/BaseLayout.astro";
           </p>
           <p>
             Turnstile, obsługa bazy danych i wysyłka e-mail nie są jeszcze aktywne w publicznym
-            serwisie. Nie przewiduje się podejmowania decyzji wywołujących skutki prawne
-            wyłącznie w sposób zautomatyzowany.
+            serwisie. Nie przewiduje się podejmowania decyzji wywołujących skutki prawne wyłącznie w
+            sposób zautomatyzowany.
           </p>
         </section>
 
         <section>
           <h2>Pliki cookies i dane techniczne</h2>
           <p>
-            Obecna wersja statyczna nie wykorzystuje narzędzi marketingowych ani analitycznych.
-            Po wdrożeniu funkcji ochronnych należy ponownie ocenić używane pliki cookies,
-            pamięć przeglądarki i logi techniczne oraz odpowiednio zaktualizować dokument.
+            Obecna wersja statyczna nie wykorzystuje narzędzi marketingowych ani analitycznych. Po
+            wdrożeniu funkcji ochronnych należy ponownie ocenić używane pliki cookies, pamięć
+            przeglądarki i logi techniczne oraz odpowiednio zaktualizować dokument.
           </p>
         </section>
 
         <section>
           <h2>Zmiany dokumentu</h2>
           <p>
-            Polityka powinna być aktualizowana po zmianie funkcji serwisu, dostawców lub
-            przepisów. W zatwierdzonej wersji należy dodać datę wejścia w życie oraz sposób
-            informowania o istotnych zmianach.
+            Polityka powinna być aktualizowana po zmianie funkcji serwisu, dostawców lub przepisów.
+            W zatwierdzonej wersji należy dodać datę wejścia w życie oraz sposób informowania o
+            istotnych zmianach.
           </p>
         </section>
       </div>

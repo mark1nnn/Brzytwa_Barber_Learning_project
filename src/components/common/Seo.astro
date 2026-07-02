@@ -8,16 +8,16 @@ interface Props {
 }
 
 const { title, description, canonicalPath, noindex = false, ogImage } = Astro.props;
-const site = Astro.site ?? new URL("https://example.invalid");
+const site = Astro.site ?? new URL('https://example.invalid');
 const normalizedCanonicalPath =
-  canonicalPath === "/" ? "/" : canonicalPath ? `${canonicalPath.replace(/\/+$/, "")}/` : undefined;
+  canonicalPath === '/' ? '/' : canonicalPath ? `${canonicalPath.replace(/\/+$/, '')}/` : undefined;
 const canonicalUrl = normalizedCanonicalPath ? new URL(normalizedCanonicalPath, site) : undefined;
 const ogImageUrl = new URL(ogImage, site);
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
-<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="pl_PL" />

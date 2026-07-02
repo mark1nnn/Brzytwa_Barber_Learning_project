@@ -1,7 +1,4 @@
-import type {
-  ApiErrorCode,
-  ApiFieldErrors,
-} from "./types";
+import type { ApiErrorCode, ApiFieldErrors } from './types';
 
 interface ApiErrorOptions {
   code: ApiErrorCode;
@@ -19,11 +16,8 @@ export class ApiError extends Error {
   readonly headers: Headers;
 
   constructor(options: ApiErrorOptions) {
-    super(
-      options.message,
-      options.cause === undefined ? undefined : { cause: options.cause },
-    );
-    this.name = "ApiError";
+    super(options.message, options.cause === undefined ? undefined : { cause: options.cause });
+    this.name = 'ApiError';
     this.code = options.code;
     this.status = options.status;
     this.fieldErrors = options.fieldErrors;

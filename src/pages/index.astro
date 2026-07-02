@@ -1,12 +1,12 @@
 ---
-import BarberCard from "@components/common/BarberCard.astro";
-import ButtonLink from "@components/common/ButtonLink.astro";
-import GalleryGrid from "@components/common/GalleryGrid.astro";
-import ServiceCard from "@components/common/ServiceCard.astro";
-import Hero from "@components/sections/Hero.astro";
-import { siteConfig } from "@config/site";
-import { barbers, galleryItems, services } from "@data/content";
-import BaseLayout from "@layouts/BaseLayout.astro";
+import BarberCard from '@components/common/BarberCard.astro';
+import ButtonLink from '@components/common/ButtonLink.astro';
+import GalleryGrid from '@components/common/GalleryGrid.astro';
+import ServiceCard from '@components/common/ServiceCard.astro';
+import Hero from '@components/sections/Hero.astro';
+import { siteConfig } from '@config/site';
+import { barbers, galleryItems, services } from '@data/content';
+import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
@@ -29,8 +29,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
           gotowego szablonu.
         </p>
         <p>
-          Łączymy klasyczne techniki z nowoczesnym spojrzeniem na formę. Efekt ma być
-          precyzyjny, wygodny i łatwy do utrzymania — bez niepotrzebnego komplikowania.
+          Łączymy klasyczne techniki z nowoczesnym spojrzeniem na formę. Efekt ma być precyzyjny,
+          wygodny i łatwy do utrzymania — bez niepotrzebnego komplikowania.
         </p>
         <ul class="feature-list">
           <li>Konsultacja przed rozpoczęciem usługi</li>
@@ -49,8 +49,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
           <h2 id="services-title">Konkretny efekt. Jasne zasady.</h2>
         </div>
         <p>
-          Najczęściej wybierane usługi. Czas i cena są widoczne przed wizytą — bez
-          niespodzianek przy fotelu.
+          Najczęściej wybierane usługi. Czas i cena są widoczne przed wizytą — bez niespodzianek
+          przy fotelu.
         </p>
       </div>
       <div class="service-grid">
@@ -69,10 +69,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
           <p class="eyebrow">Zespół</p>
           <h2 id="team-title">Wybierz swojego barbera.</h2>
         </div>
-        <p>
-          Różne specjalizacje, wspólny standard pracy. Poznaj osoby, które zadbają o Twój
-          styl.
-        </p>
+        <p>Różne specjalizacje, wspólny standard pracy. Poznaj osoby, które zadbają o Twój styl.</p>
       </div>
       <div class="team-grid">
         {barbers.map((barber) => <BarberCard barber={barber} />)}
@@ -87,10 +84,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
           <p class="eyebrow">Przestrzeń</p>
           <h2 id="gallery-title">Miejsce stworzone do dobrej pracy.</h2>
         </div>
-        <p>
-          Spokojne wnętrze, przemyślane stanowiska i narzędzia przygotowane przed każdą
-          wizytą.
-        </p>
+        <p>Spokojne wnętrze, przemyślane stanowiska i narzędzia przygotowane przed każdą wizytą.</p>
       </div>
       <GalleryGrid items={galleryItems} />
     </div>
@@ -118,14 +112,16 @@ import BaseLayout from "@layouts/BaseLayout.astro";
         <p class="eyebrow">Odwiedź nas</p>
         <h2 id="hours-title">Brzytwa Barber, Katowice.</h2>
         <p>{siteConfig.contact.address}</p>
-        <ButtonLink href="/kontakt" variant="text">Dane kontaktowe <span aria-hidden="true">↗</span></ButtonLink>
+        <ButtonLink href="/kontakt" variant="text"
+          >Dane kontaktowe <span aria-hidden="true">↗</span></ButtonLink
+        >
       </div>
       <dl class="hours">
         {
           siteConfig.businessHours.map((item) => (
             <div>
               <dt>{item.days}</dt>
-              <dd class:list={{ "is-closed": item.closed }}>{item.hours}</dd>
+              <dd class:list={{ 'is-closed': item.closed }}>{item.hours}</dd>
             </div>
           ))
         }

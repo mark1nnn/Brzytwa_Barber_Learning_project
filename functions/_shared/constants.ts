@@ -1,4 +1,4 @@
-export const APP_TIMEZONE = "Europe/Warsaw";
+export const APP_TIMEZONE = 'Europe/Warsaw';
 export const SLOT_DURATION_MINUTES = 15;
 export const MIN_BOOKING_LEAD_MINUTES = 120;
 export const MAX_BOOKING_DAYS_AHEAD = 45;
