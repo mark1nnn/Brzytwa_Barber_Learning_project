@@ -9,10 +9,15 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check",
-    "build": "astro check && astro build",
+    "check": "astro check && npm run functions:check",
+    "build": "npm run check && astro build",
     "preview": "astro preview",
     "pages:dev": "npm run build && wrangler pages dev dist",
+    "cf:types": "wrangler types --path=\"./functions/types.d.ts\"",
+    "functions:check": "tsc -p functions/tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:unit:watch": "vitest tests/unit",
     "d1:migrations:list:local": "wrangler d1 migrations list DB --local",
     "d1:migrations:apply:local": "wrangler d1 migrations apply DB --local",
     "d1:migrations:list:remote": "wrangler d1 migrations list DB --remote",
@@ -21,13 +26,16 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",
+    "@js-temporal/polyfill": "0.5.1",
     "astro": "7.0.5",
-    "gsap": "3.13.0"
+    "gsap": "3.13.0",
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",
     "typescript": "6.0.3",
     "vite": "8.1.2",
+    "vitest": "4.1.9",
     "wrangler": "4.106.0"
   },
   "overrides": {
