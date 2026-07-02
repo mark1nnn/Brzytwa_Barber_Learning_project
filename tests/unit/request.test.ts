@@ -61,7 +61,7 @@ describe('readJsonBody', () => {
       const error = await captureApiError(readJsonBody(request));
 
       expect(error.code).toBe('INVALID_CONTENT_TYPE');
-      expect(error.status).toBe(415);
+      expect(error.status).toBe(400);
     },
   );
 

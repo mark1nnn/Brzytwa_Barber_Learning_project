@@ -4,6 +4,8 @@ export const API_ERROR_CODES = {
   INVALID_JSON: 'INVALID_JSON',
   PAYLOAD_TOO_LARGE: 'PAYLOAD_TOO_LARGE',
   INVALID_TURNSTILE: 'INVALID_TURNSTILE',
+  TURNSTILE_FAILED: 'TURNSTILE_FAILED',
+  TURNSTILE_UNAVAILABLE: 'TURNSTILE_UNAVAILABLE',
   SERVICE_NOT_FOUND: 'SERVICE_NOT_FOUND',
   BARBER_NOT_FOUND: 'BARBER_NOT_FOUND',
   BARBER_SERVICE_UNAVAILABLE: 'BARBER_SERVICE_UNAVAILABLE',
@@ -111,3 +113,75 @@ export interface PublicBarber {
 export interface BarbersResponse {
   barbers: PublicBarber[];
 }
+
+export interface AvailabilityServiceRow {
+  id: number;
+  duration_minutes: number;
+}
+
+export interface ActiveBarberRow {
+  id: number;
+}
+
+export interface BarberServiceLinkRow {
+  linked: number;
+}
+
+export interface WorkingHoursRow {
+  start_time: string;
+  end_time: string;
+}
+
+export interface BlockedPeriodRow {
+  starts_at_utc: string;
+  ends_at_utc: string;
+}
+
+export interface AppointmentSlotRow {
+  slot_start_utc: string;
+}
+
+export interface AvailabilitySlot {
+  startsAt: string;
+  localTime: string;
+}
+
+export interface AvailabilityResponse {
+  date: string;
+  timezone: 'Europe/Warsaw';
+  slots: AvailabilitySlot[];
+}
+
+export interface BookingServiceRow {
+  id: number;
+  name: string;
+  duration_minutes: number;
+  price_grosze: number;
+}
+
+export interface BookingBarberRow {
+  id: number;
+  name: string;
+}
+
+export interface BookingDetails {
+  bookingCode: string;
+  serviceName: string;
+  barberName: string;
+  startsAt: string;
+  endsAt: string;
+  localDate: string;
+  localTime: string;
+  durationMinutes: number;
+  priceGrosze: number;
+}
+
+export interface BookingResponse {
+  booking: BookingDetails;
+  emailStatus: {
+    customer: EmailDeliveryStatus;
+    admin: EmailDeliveryStatus;
+  };
+}
+
+export type EmailDeliveryStatus = 'sent' | 'failed';

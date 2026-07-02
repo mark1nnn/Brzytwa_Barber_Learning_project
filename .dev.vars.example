@@ -1,0 +1,5 @@
+PUBLIC_TURNSTILE_SITE_KEY=replace-with-turnstile-site-key
+TURNSTILE_SECRET_KEY=replace-with-turnstile-secret
+RESEND_API_KEY=replace-with-resend-api-key
+RESEND_FROM_EMAIL="Brzytwa Barber <booking@example.invalid>"
+ADMIN_NOTIFICATION_EMAIL=admin@example.invalid

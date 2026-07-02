@@ -75,6 +75,17 @@ export function formatUtcInWarsaw(utcTimestamp: string): {
   };
 }
 
+export function getWarsawLocalIsoDate(utcTimestamp: string): string {
+  if (!isValidUtcTimestamp(utcTimestamp)) {
+    throw new RangeError('Invalid UTC timestamp.');
+  }
+
+  return Temporal.Instant.from(utcTimestamp)
+    .toZonedDateTimeISO(APP_TIMEZONE)
+    .toPlainDate()
+    .toString();
+}
+
 export function getWarsawIsoWeekday(utcTimestamp: string): number {
   if (!isValidUtcTimestamp(utcTimestamp)) {
     throw new RangeError('Invalid UTC timestamp.');

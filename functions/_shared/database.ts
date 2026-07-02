@@ -13,6 +13,13 @@ export async function runStatement(statement: D1PreparedStatement): Promise<D1Re
   return statement.run();
 }
 
+export async function runBatchStatements(
+  database: D1Database,
+  statements: D1PreparedStatement[],
+): Promise<D1Result<unknown>[]> {
+  return database.batch(statements);
+}
+
 export async function checkDatabaseHealth(database: D1Database): Promise<boolean> {
   const row = await getFirstRow<HealthRow>(database.prepare('SELECT 1 AS ok'));
 

@@ -2,7 +2,11 @@ export const APP_TIMEZONE = 'Europe/Warsaw';
 export const SLOT_DURATION_MINUTES = 15;
 export const MIN_BOOKING_LEAD_MINUTES = 120;
 export const MAX_BOOKING_DAYS_AHEAD = 45;
+export const MAX_BOOKING_CODE_ATTEMPTS = 5;
+export const TURNSTILE_TIMEOUT_MS = 5_000;
+export const RESEND_TIMEOUT_MS = 5_000;
 export const MAX_JSON_BODY_BYTES = 16_384;
+export const MAX_TURNSTILE_TOKEN_LENGTH = 2_048;
 
 export const MAX_CUSTOMER_NAME_LENGTH = 80;
 export const MAX_CUSTOMER_EMAIL_LENGTH = 254;

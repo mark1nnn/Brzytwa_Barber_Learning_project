@@ -5,6 +5,7 @@ import {
   MAX_CUSTOMER_NAME_LENGTH,
   MAX_CUSTOMER_NOTES_LENGTH,
   MAX_CUSTOMER_PHONE_LENGTH,
+  MAX_TURNSTILE_TOKEN_LENGTH,
 } from './constants';
 import { isValidLocalDate, isValidUtcTimestamp } from './time';
 import type { ApiFieldErrors } from './types';
@@ -84,6 +85,22 @@ export const customerNotesSchema = z
 export const privacyNoticeSchema = z.literal(true, {
   error: 'Potwierdź zapoznanie się z polityką prywatności.',
 });
+
+export const bookingRequestSchema = z
+  .object({
+    serviceId: positiveIntegerIdSchema,
+    barberId: positiveIntegerIdSchema,
+    startsAt: utcTimestampSchema,
+    customerName: customerNameSchema,
+    customerPhone: customerPhoneSchema,
+    customerEmail: customerEmailSchema,
+    customerNotes: customerNotesSchema,
+    privacyNoticeAccepted: privacyNoticeSchema,
+    turnstileToken: z.string().trim().max(MAX_TURNSTILE_TOKEN_LENGTH).optional(),
+  })
+  .strict();
+
+export type BookingRequest = z.infer<typeof bookingRequestSchema>;
 
 export function zodIssuesToFieldErrors(issues: readonly z.core.$ZodIssue[]): ApiFieldErrors {
   const fieldErrors: ApiFieldErrors = {};

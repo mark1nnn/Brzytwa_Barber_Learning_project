@@ -36,7 +36,7 @@ export async function readJsonBody(request: Request): Promise<unknown> {
   if (mediaType === undefined || !JSON_MEDIA_TYPE_PATTERN.test(mediaType)) {
     throw new ApiError({
       code: API_ERROR_CODES.INVALID_CONTENT_TYPE,
-      status: 415,
+      status: 400,
       message: 'Wymagany jest format application/json.',
     });
   }
