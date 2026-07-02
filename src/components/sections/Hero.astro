@@ -1,0 +1,67 @@
+---
+import ButtonLink from "@components/common/ButtonLink.astro";
+---
+
+<section class="hero" aria-labelledby="hero-title" data-premium-hero>
+  <div class="hero__background" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <svg
+    class="hero__trails hero__trails--back"
+    viewBox="0 0 1600 900"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path d="M860 720C1110 760 1440 610 1490 330C1515 195 1410 105 1260 125"></path>
+    <path d="M790 610C1040 430 1210 155 1515 195"></path>
+  </svg>
+
+  <canvas class="hero__particles" data-hero-particles aria-hidden="true"></canvas>
+
+  <div class="container hero__inner">
+    <div class="hero__content" data-reveal>
+      <h1 id="hero-title"><span>Precyzja</span> <span>w każdym detalu.</span></h1>
+      <p>
+        Dobre strzyżenie nie potrzebuje pośpiechu. Słuchamy, doradzamy i budujemy formę,
+        która działa także po wyjściu z fotela.
+      </p>
+      <ButtonLink href="/rezerwacja" class="hero__cta">
+        Sprawdź rezerwację <span aria-hidden="true">→</span>
+      </ButtonLink>
+    </div>
+  </div>
+
+  <div class="hero__visual" data-hero-parallax>
+    <div class="hero__float" data-hero-float>
+      <div class="hero__reveal" data-hero-reveal>
+        <picture>
+          <source srcset="/images/barbershop-scissors.webp" type="image/webp" />
+          <img
+            class="hero__scissors"
+            src="/images/barbershop-scissors.webp"
+            width="1672"
+            height="941"
+            alt="Profesjonalne metalowe nożyczki fryzjerskie w złotym świetle"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </picture>
+        <div class="hero__shine"></div>
+      </div>
+    </div>
+  </div>
+
+  <svg
+    class="hero__trails hero__trails--front"
+    viewBox="0 0 1600 900"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path d="M930 785C1190 720 1390 525 1455 300"></path>
+  </svg>
+</section>
+
+<script>
+  import "../../scripts/hero";
+</script>

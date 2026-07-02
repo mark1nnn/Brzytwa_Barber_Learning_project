@@ -7,6 +7,10 @@ const isCurrent = (href: string): boolean => {
   const normalizedHref = href.replace(/\/$/, "") || "/";
   return normalizedHref === currentPath;
 };
+
+const splitIndex = Math.ceil(siteConfig.navigation.length / 2);
+const leftNavigation = siteConfig.navigation.slice(0, splitIndex);
+const rightNavigation = siteConfig.navigation.slice(splitIndex);
 ---
 
 <header class="site-header" data-site-header>
@@ -32,9 +36,9 @@ const isCurrent = (href: string): boolean => {
     </button>
 
     <nav class="site-nav" id="main-navigation" aria-label="Główna nawigacja" data-navigation>
-      <ul class="site-nav__list">
+      <ul class="site-nav__list site-nav__list--left">
         {
-          siteConfig.navigation.map((item) => (
+          leftNavigation.map((item) => (
             <li>
               <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
                 {item.label}
@@ -43,7 +47,26 @@ const isCurrent = (href: string): boolean => {
           ))
         }
       </ul>
-      <a class="button button--small" href="/rezerwacja">Rezerwacja</a>
+      <ul class="site-nav__list site-nav__list--right">
+        {
+          rightNavigation.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="site-nav__booking">
+          <a
+            class="button button--small"
+            href="/rezerwacja"
+            aria-current={isCurrent("/rezerwacja") ? "page" : undefined}
+          >
+            Rezerwacja
+          </a>
+        </li>
+      </ul>
     </nav>
   </div>
 </header>

@@ -1,12 +1,11 @@
 ---
-import { Image } from "astro:assets";
-
 import BarberCard from "@components/common/BarberCard.astro";
 import ButtonLink from "@components/common/ButtonLink.astro";
 import GalleryGrid from "@components/common/GalleryGrid.astro";
 import ServiceCard from "@components/common/ServiceCard.astro";
+import Hero from "@components/sections/Hero.astro";
 import { siteConfig } from "@config/site";
-import { barbers, galleryItems, heroImage, services } from "@data/content";
+import { barbers, galleryItems, services } from "@data/content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 ---
 
@@ -14,39 +13,9 @@ import BaseLayout from "@layouts/BaseLayout.astro";
   title="Barber Katowice — Brzytwa Barber"
   description="Brzytwa Barber w Katowicach: precyzyjne strzyżenie męskie, pielęgnacja brody i spokojne rzemiosło w nowoczesnym wydaniu."
   canonicalPath="/"
+  bodyClass="home-page"
 >
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero__media">
-      <Image
-        src={heroImage}
-        alt="Barber wykonujący precyzyjne strzyżenie w nowoczesnym salonie"
-        widths={[640, 960, 1440, 1920]}
-        sizes="100vw"
-        format="webp"
-        loading="eager"
-        fetchpriority="high"
-      />
-    </div>
-    <div class="container hero__inner">
-      <div class="hero__content" data-reveal>
-        <p class="eyebrow">Barbershop · Katowice</p>
-        <h1 id="hero-title">Precyzja w każdym detalu.</h1>
-        <p>
-          Dobre strzyżenie nie potrzebuje pośpiechu. Słuchamy, doradzamy i budujemy formę,
-          która działa także po wyjściu z fotela.
-        </p>
-        <div class="button-row">
-          <ButtonLink href="/rezerwacja">Sprawdź rezerwację</ButtonLink>
-          <ButtonLink href="/uslugi" variant="secondary">Poznaj usługi</ButtonLink>
-        </div>
-        <div class="hero__note" aria-label="Najważniejsze informacje">
-          <span>Centrum Katowic</span>
-          <span>Pon.–pt. 09:00–20:00</span>
-          <span>Bez pośpiechu</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Hero />
 
   <section class="section">
     <div class="container intro-grid">
