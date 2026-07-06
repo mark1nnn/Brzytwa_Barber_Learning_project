@@ -3,24 +3,24 @@
   "name": "brzytwa-barber",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-07-01",
-  // Local Pages development uses preview_database_id and never reaches remote D1.
-  // Replace both preview placeholders before any preview deployment or remote migration.
+
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "brzytwa-barber-preview",
+      "database_name": "brzytwa-barber-production",
       "database_id": "87c950cf-1943-4ce9-a9ff-ad53922e0cdf",
       "preview_database_id": "DB",
       "migrations_dir": "migrations",
     },
   ],
+
   "env": {
     "preview": {
       "d1_databases": [
         {
           "binding": "DB",
           "database_name": "brzytwa-barber-preview",
-          "database_id": "87c950cf-1943-4ce9-a9ff-ad53922e0cdf",
+          "database_id": "8f11412e-ecc1-485c-9fee-4f0329b5c964",
           "migrations_dir": "migrations",
         },
       ],
