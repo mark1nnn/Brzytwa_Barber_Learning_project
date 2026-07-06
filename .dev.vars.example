@@ -1,3 +1,5 @@
+# Local Pages Functions values. Copy to .dev.vars; never commit the real file.
+# PUBLIC_TURNSTILE_SITE_KEY must match the site key used by the local Astro build.
 PUBLIC_TURNSTILE_SITE_KEY=replace-with-turnstile-site-key
 TURNSTILE_SECRET_KEY=replace-with-turnstile-secret
 RESEND_API_KEY=replace-with-resend-api-key
