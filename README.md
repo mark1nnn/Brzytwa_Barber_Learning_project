@@ -1058,7 +1058,7 @@ Scripts используют явные database names и `--env`. Перед з
 только после успешного preview и checklist. Никакая build/verify команда не
 запускает remote migrations.
 
-### Slot locking
+### Slot lockinggg
 
 `appointment_slots` содержит:
 
