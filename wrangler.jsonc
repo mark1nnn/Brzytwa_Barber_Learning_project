@@ -9,7 +9,7 @@
     {
       "binding": "DB",
       "database_name": "brzytwa-barber-preview",
-      "database_id": "REPLACE_WITH_PREVIEW_D1_DATABASE_ID",
+      "database_id": "87c950cf-1943-4ce9-a9ff-ad53922e0cdf",
       "preview_database_id": "DB",
       "migrations_dir": "migrations",
     },
@@ -20,7 +20,7 @@
         {
           "binding": "DB",
           "database_name": "brzytwa-barber-preview",
-          "database_id": "REPLACE_WITH_PREVIEW_D1_DATABASE_ID",
+          "database_id": "87c950cf-1943-4ce9-a9ff-ad53922e0cdf",
           "migrations_dir": "migrations",
         },
       ],
@@ -30,7 +30,7 @@
         {
           "binding": "DB",
           "database_name": "brzytwa-barber-production",
-          "database_id": "REPLACE_WITH_PRODUCTION_D1_DATABASE_ID",
+          "database_id": "87c950cf-1943-4ce9-a9ff-ad53922e0cdf",
           "migrations_dir": "migrations",
         },
       ],
