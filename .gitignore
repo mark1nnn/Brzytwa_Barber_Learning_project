@@ -12,7 +12,7 @@ dist/
 .env
 .env.*
 !.env.example
-.dev.vars
+.dev.vars*
 
 # test and coverage output
 coverage/
