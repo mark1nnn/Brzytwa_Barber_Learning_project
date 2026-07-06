@@ -4,6 +4,13 @@
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-07-01",
 
+  "vars": {
+    "PUBLIC_SITE_URL": "https://brzytwa-barber-learning-project-preview.pages.dev",
+    "PUBLIC_TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+    "RESEND_FROM_EMAIL": "Brzytwa Barber <onboarding@resend.dev>",
+    "ADMIN_NOTIFICATION_EMAIL": "markin.vadim2005@gmail.com",
+  },
+
   "d1_databases": [
     {
       "binding": "DB",
@@ -16,6 +23,12 @@
 
   "env": {
     "preview": {
+      "vars": {
+        "PUBLIC_SITE_URL": "https://brzytwa-barber-learning-project-preview.pages.dev",
+        "PUBLIC_TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+        "RESEND_FROM_EMAIL": "Brzytwa Barber <onboarding@resend.dev>",
+        "ADMIN_NOTIFICATION_EMAIL": "markin.vadim2005@gmail.com",
+      },
       "d1_databases": [
         {
           "binding": "DB",
@@ -26,6 +39,12 @@
       ],
     },
     "production": {
+      "vars": {
+        "PUBLIC_SITE_URL": "https://brzytwa-barber-learning-project.pages.dev",
+        "PUBLIC_TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+        "RESEND_FROM_EMAIL": "Brzytwa Barber <onboarding@resend.dev>",
+        "ADMIN_NOTIFICATION_EMAIL": "markin.vadim2005@gmail.com",
+      },
       "d1_databases": [
         {
           "binding": "DB",
