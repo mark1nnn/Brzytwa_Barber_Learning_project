@@ -18,6 +18,7 @@ const UTC_TIMESTAMP_MESSAGE = 'Podaj prawidłowy znacznik czasu UTC.';
 const POSITIVE_INTEGER_ID_MESSAGE = 'Identyfikator musi być dodatnią liczbą całkowitą.';
 
 const CUSTOMER_NAME_PATTERN = /^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$/u;
+const LOCAL_TIME_PATTERN = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
 
 export const positiveIntegerIdSchema = z
   .union([z.number(), z.string().regex(/^[1-9]\d*$/, POSITIVE_INTEGER_ID_MESSAGE)])
@@ -101,6 +102,122 @@ export const bookingRequestSchema = z
   .strict();
 
 export type BookingRequest = z.infer<typeof bookingRequestSchema>;
+
+export const appointmentStatusSchema = z.enum(['confirmed', 'cancelled', 'completed', 'no_show']);
+
+export type AppointmentStatus = z.infer<typeof appointmentStatusSchema>;
+
+const optionalPositiveIntegerQuerySchema = z
+  .string()
+  .regex(/^[1-9]\d*$/, POSITIVE_INTEGER_ID_MESSAGE)
+  .transform(Number)
+  .refine((value) => Number.isSafeInteger(value) && value > 0, POSITIVE_INTEGER_ID_MESSAGE)
+  .optional();
+
+export const adminAppointmentsQuerySchema = z
+  .object({
+    dateFrom: localDateSchema.optional(),
+    dateTo: localDateSchema.optional(),
+    barberId: optionalPositiveIntegerQuerySchema,
+    serviceId: optionalPositiveIntegerQuerySchema,
+    status: appointmentStatusSchema.optional(),
+    sort: z.enum(['asc', 'desc']).default('desc'),
+    page: z
+      .string()
+      .regex(/^[1-9]\d*$/)
+      .transform(Number)
+      .refine((value) => Number.isSafeInteger(value) && value <= 1_000_000)
+      .default(1),
+    limit: z
+      .string()
+      .regex(/^[1-9]\d*$/)
+      .transform(Number)
+      .refine((value) => Number.isSafeInteger(value) && value <= 100)
+      .default(50),
+  })
+  .strict()
+  .refine(
+    (value) =>
+      value.dateFrom === undefined || value.dateTo === undefined || value.dateFrom <= value.dateTo,
+    {
+      path: ['dateTo'],
+      message: 'Data końcowa nie może być wcześniejsza niż data początkowa.',
+    },
+  );
+
+export type AdminAppointmentsQuery = z.infer<typeof adminAppointmentsQuerySchema>;
+
+export const adminAppointmentStatusRequestSchema = z
+  .object({
+    status: appointmentStatusSchema,
+  })
+  .strict();
+
+export type AdminAppointmentStatusRequest = z.infer<typeof adminAppointmentStatusRequestSchema>;
+
+export const adminServicePatchSchema = z
+  .object({
+    name: z.string().trim().min(1).max(120).optional(),
+    description: z.string().trim().min(1).max(1000).optional(),
+    durationMinutes: z
+      .number()
+      .int()
+      .min(15)
+      .max(480)
+      .refine((value) => value % 15 === 0, 'Czas usługi musi być wielokrotnością 15 minut.')
+      .optional(),
+    priceGrosze: z.number().int().min(0).max(10_000_000).optional(),
+    active: z.boolean().optional(),
+    sortOrder: z.number().int().min(0).max(1_000_000).optional(),
+  })
+  .strict()
+  .refine((value) => Object.keys(value).length > 0, {
+    message: 'Podaj co najmniej jedno pole do zmiany.',
+  });
+
+export type AdminServicePatch = z.infer<typeof adminServicePatchSchema>;
+
+export const adminBarberPatchSchema = z
+  .object({
+    name: z.string().trim().min(1).max(120).optional(),
+    bio: z.string().trim().min(1).max(2000).optional(),
+    imagePath: z.string().trim().min(1).max(300).optional(),
+    active: z.boolean().optional(),
+  })
+  .strict()
+  .refine((value) => Object.keys(value).length > 0, {
+    message: 'Podaj co najmniej jedno pole do zmiany.',
+  });
+
+export type AdminBarberPatch = z.infer<typeof adminBarberPatchSchema>;
+
+export const adminWorkingHoursPatchSchema = z
+  .object({
+    startTime: z.string().regex(LOCAL_TIME_PATTERN, 'Podaj godzinę w formacie HH:MM.').optional(),
+    endTime: z.string().regex(LOCAL_TIME_PATTERN, 'Podaj godzinę w formacie HH:MM.').optional(),
+    active: z.boolean().optional(),
+  })
+  .strict()
+  .refine((value) => Object.keys(value).length > 0, {
+    message: 'Podaj co najmniej jedno pole do zmiany.',
+  });
+
+export type AdminWorkingHoursPatch = z.infer<typeof adminWorkingHoursPatchSchema>;
+
+export const adminBlockedPeriodRequestSchema = z
+  .object({
+    barberId: positiveIntegerIdSchema,
+    startsAt: utcTimestampSchema,
+    endsAt: utcTimestampSchema,
+    reason: z.string().trim().min(1).max(500).optional(),
+  })
+  .strict()
+  .refine((value) => value.startsAt < value.endsAt, {
+    path: ['endsAt'],
+    message: 'Koniec blokady musi być późniejszy niż początek.',
+  });
+
+export type AdminBlockedPeriodRequest = z.infer<typeof adminBlockedPeriodRequestSchema>;
 
 export function zodIssuesToFieldErrors(issues: readonly z.core.$ZodIssue[]): ApiFieldErrors {
   const fieldErrors: ApiFieldErrors = {};

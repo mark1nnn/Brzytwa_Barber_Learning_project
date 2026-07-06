@@ -4,28 +4,419 @@ import AdminLayout from '@layouts/AdminLayout.astro';
 
 <AdminLayout
   title="Panel administracyjny — Brzytwa Barber"
-  description="Techniczna strona przyszłego panelu administracyjnego Brzytwa Barber."
+  description="Chroniony panel administracyjny Brzytwa Barber do obsługi rezerwacji, oferty i grafiku."
 >
-  <section class="admin-placeholder" aria-labelledby="admin-title">
-    <div class="admin-placeholder__icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24">
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          d="M7.5 10V7a4.5 4.5 0 0 1 9 0v3m-11 0h13v10h-13V10Z"></path>
-      </svg>
+  <div class="admin-shell" data-admin-app>
+    <section class="admin-access-state" data-admin-access-state hidden aria-live="assertive">
+      <p class="eyebrow">Dostęp chroniony</p>
+      <p class="admin-access-title" role="heading" aria-level="1">
+        Panel wymaga Cloudflare Access.
+      </p>
+      <p data-admin-access-message>
+        Zaloguj się przez Cloudflare Access, aby wyświetlić dane administracyjne.
+      </p>
+      <button class="button button--secondary" type="button" data-admin-retry>
+        Spróbuj ponownie
+      </button>
+    </section>
+
+    <div data-admin-content>
+      <header class="admin-intro">
+        <div>
+          <p class="eyebrow">Panel administracyjny</p>
+          <h1>Centrum zarządzania salonem.</h1>
+          <p>
+            Rezerwacje, oferta i dostępność w jednym miejscu. Wszystkie godziny są prezentowane dla
+            strefy Europe/Warsaw.
+          </p>
+        </div>
+        <p class="admin-security-note">
+          <strong>Dostęp prywatny.</strong> Panel i API muszą być chronione przez Cloudflare Access.
+        </p>
+      </header>
+
+      <div
+        class="admin-alert"
+        data-admin-alert
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        hidden
+      >
+      </div>
+
+      <nav class="admin-section-nav" aria-label="Sekcje panelu">
+        <a href="#dashboard">Pulpit</a>
+        <a href="#appointments">Rezerwacje</a>
+        <a href="#services">Usługi</a>
+        <a href="#barbers">Barberzy</a>
+        <a href="#working-hours">Godziny pracy</a>
+        <a href="#blocked-periods">Blokady</a>
+      </nav>
+
+      <section class="admin-section" id="dashboard" aria-labelledby="dashboard-title">
+        <div class="admin-section__heading">
+          <div>
+            <p class="eyebrow">Dzisiaj</p>
+            <h2 id="dashboard-title">Pulpit</h2>
+          </div>
+          <button class="admin-text-button" type="button" data-refresh-dashboard>
+            Odśwież podsumowanie
+          </button>
+        </div>
+
+        <div class="admin-summary-grid" aria-live="polite">
+          <article class="admin-summary-card">
+            <span class="admin-summary-card__value" data-summary-today>—</span>
+            <h3>Dzisiejsze wizyty</h3>
+            <p>Wszystkie statusy na bieżący dzień.</p>
+          </article>
+          <article class="admin-summary-card">
+            <span class="admin-summary-card__value" data-summary-future>—</span>
+            <h3>Nadchodzące</h3>
+            <p>Wizyty rozpoczynające się później.</p>
+          </article>
+          <article class="admin-summary-card">
+            <span class="admin-summary-card__value" data-summary-cancelled>—</span>
+            <h3>Anulowane</h3>
+            <p>Ostatnie anulowane rezerwacje.</p>
+          </article>
+        </div>
+
+        <div class="admin-quick-links">
+          <a href="#appointments">Przejdź do rezerwacji <span aria-hidden="true">→</span></a>
+          <a href="#blocked-periods">Dodaj blokadę <span aria-hidden="true">→</span></a>
+          <a href="#working-hours">Sprawdź grafik <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="admin-section" id="appointments" aria-labelledby="appointments-title">
+        <div class="admin-section__heading">
+          <div>
+            <p class="eyebrow">Obsługa klientów</p>
+            <h2 id="appointments-title">Rezerwacje</h2>
+          </div>
+          <span class="admin-section__meta" data-appointments-meta>Ładowanie…</span>
+        </div>
+
+        <form class="admin-filter-form" data-appointments-filter>
+          <div class="admin-field">
+            <label for="admin-date-from">Od daty</label>
+            <input id="admin-date-from" name="dateFrom" type="date" />
+          </div>
+          <div class="admin-field">
+            <label for="admin-date-to">Do daty</label>
+            <input id="admin-date-to" name="dateTo" type="date" />
+          </div>
+          <div class="admin-field">
+            <label for="admin-filter-barber">Barber</label>
+            <select id="admin-filter-barber" name="barberId" data-filter-barber>
+              <option value="">Wszyscy</option>
+            </select>
+          </div>
+          <div class="admin-field">
+            <label for="admin-filter-service">Usługa</label>
+            <select id="admin-filter-service" name="serviceId" data-filter-service>
+              <option value="">Wszystkie</option>
+            </select>
+          </div>
+          <div class="admin-field">
+            <label for="admin-filter-status">Status</label>
+            <select id="admin-filter-status" name="status">
+              <option value="">Wszystkie</option>
+              <option value="confirmed">Potwierdzona</option>
+              <option value="completed">Zakończona</option>
+              <option value="cancelled">Anulowana</option>
+              <option value="no_show">Nieobecność</option>
+            </select>
+          </div>
+          <div class="admin-field">
+            <label for="admin-filter-sort">Kolejność</label>
+            <select id="admin-filter-sort" name="sort">
+              <option value="desc">Najnowsze najpierw</option>
+              <option value="asc">Najstarsze najpierw</option>
+            </select>
+          </div>
+          <div class="admin-filter-form__actions">
+            <button class="button button--small" type="submit">Filtruj</button>
+            <button class="button button--secondary button--small" type="reset"> Wyczyść </button>
+          </div>
+        </form>
+
+        <div class="admin-list" data-appointments-list aria-live="polite">
+          <p class="admin-loading">Ładowanie rezerwacji…</p>
+        </div>
+
+        <div class="admin-pagination" aria-label="Paginacja rezerwacji">
+          <button
+            class="button button--secondary button--small"
+            type="button"
+            data-page-prev
+            disabled
+          >
+            ← Poprzednia
+          </button>
+          <span data-page-label>Strona 1</span>
+          <button
+            class="button button--secondary button--small"
+            type="button"
+            data-page-next
+            disabled
+          >
+            Następna →
+          </button>
+        </div>
+      </section>
+
+      <section class="admin-section" id="services" aria-labelledby="services-title">
+        <div class="admin-section__heading">
+          <div>
+            <p class="eyebrow">Oferta</p>
+            <h2 id="services-title">Usługi</h2>
+          </div>
+          <span class="admin-section__meta">Bez fizycznego usuwania</span>
+        </div>
+        <div class="admin-list admin-list--grid" data-services-list aria-live="polite">
+          <p class="admin-loading">Ładowanie usług…</p>
+        </div>
+      </section>
+
+      <section class="admin-section" id="barbers" aria-labelledby="barbers-title">
+        <div class="admin-section__heading">
+          <div>
+            <p class="eyebrow">Zespół</p>
+            <h2 id="barbers-title">Barberzy</h2>
+          </div>
+          <span class="admin-section__meta">Aktywni i nieaktywni</span>
+        </div>
+        <div class="admin-list admin-list--grid" data-barbers-list aria-live="polite">
+          <p class="admin-loading">Ładowanie barberów…</p>
+        </div>
+      </section>
+
+      <section class="admin-section" id="working-hours" aria-labelledby="working-hours-title">
+        <div class="admin-section__heading">
+          <div>
+            <p class="eyebrow">Europe/Warsaw</p>
+            <h2 id="working-hours-title">Godziny pracy</h2>
+          </div>
+          <span class="admin-section__meta">Poniedziałek–niedziela</span>
+        </div>
+        <div class="admin-list" data-working-hours-list aria-live="polite">
+          <p class="admin-loading">Ładowanie grafiku…</p>
+        </div>
+      </section>
+
+      <section class="admin-section" id="blocked-periods" aria-labelledby="blocked-periods-title">
+        <div class="admin-section__heading">
+          <div>
+            <p class="eyebrow">Niedostępność</p>
+            <h2 id="blocked-periods-title">Blokady terminów</h2>
+          </div>
+          <span class="admin-section__meta">Czas lokalny Europe/Warsaw</span>
+        </div>
+
+        <form class="admin-create-form" data-blocked-period-form novalidate>
+          <div class="admin-field">
+            <label for="blocked-barber">Barber</label>
+            <select id="blocked-barber" name="barberId" data-blocked-barber required>
+              <option value="">Wybierz barbera</option>
+            </select>
+            <span class="admin-field__error" data-field-error="barberId"></span>
+          </div>
+          <div class="admin-field">
+            <label for="blocked-start">Początek</label>
+            <input id="blocked-start" name="startsAt" type="datetime-local" required />
+            <span class="admin-field__error" data-field-error="startsAt"></span>
+          </div>
+          <div class="admin-field">
+            <label for="blocked-end">Koniec</label>
+            <input id="blocked-end" name="endsAt" type="datetime-local" required />
+            <span class="admin-field__error" data-field-error="endsAt"></span>
+          </div>
+          <div class="admin-field admin-field--wide">
+            <label for="blocked-reason">Powód <span>(opcjonalnie)</span></label>
+            <input id="blocked-reason" name="reason" type="text" maxlength="500" />
+            <span class="admin-field__error" data-field-error="reason"></span>
+          </div>
+          <button class="button" type="submit" data-blocked-submit>Dodaj blokadę</button>
+        </form>
+
+        <div class="admin-list" data-blocked-periods-list aria-live="polite">
+          <p class="admin-loading">Ładowanie blokad…</p>
+        </div>
+      </section>
     </div>
-    <p class="eyebrow">Panel administracyjny</p>
-    <h1 id="admin-title">Panel nie jest jeszcze aktywny.</h1>
-    <p>
-      Ta strona nie wyświetla danych, nie symuluje logowania i nie stanowi zabezpieczonego panelu.
-      Funkcje administracyjne pojawią się po wdrożeniu API oraz Cloudflare Access.
-    </p>
-    <p class="placeholder-note">
-      Strona ma ustawienie <strong>noindex, nofollow</strong>, ale sama dyrektywa robots nie
-      zastępuje kontroli dostępu.
-    </p>
-    <a class="text-link" href="/">← Wróć do strony publicznej</a>
-  </section>
+
+    <dialog class="admin-dialog" data-appointment-dialog aria-labelledby="appointment-dialog-title">
+      <div class="admin-dialog__header">
+        <div>
+          <p class="eyebrow">Szczegóły rezerwacji</p>
+          <h2 id="appointment-dialog-title" data-detail-code>Rezerwacja</h2>
+        </div>
+        <button class="admin-dialog__close" type="button" data-dialog-close aria-label="Zamknij">
+          ×
+        </button>
+      </div>
+      <div class="admin-dialog__body">
+        <dl class="admin-detail-list">
+          <div><dt>Usługa</dt><dd data-detail-service></dd></div>
+          <div><dt>Barber</dt><dd data-detail-barber></dd></div>
+          <div><dt>Termin</dt><dd data-detail-date></dd></div>
+          <div><dt>Klient</dt><dd data-detail-customer></dd></div>
+          <div><dt>Telefon</dt><dd data-detail-phone></dd></div>
+          <div><dt>E-mail</dt><dd data-detail-email></dd></div>
+          <div class="admin-detail-list__wide"><dt>Uwagi</dt><dd data-detail-notes></dd></div>
+          <div class="admin-detail-list__wide">
+            <dt>Zablokowane sloty</dt>
+            <dd><ul class="admin-slot-list" data-detail-slots></ul></dd>
+          </div>
+        </dl>
+
+        <form class="admin-status-form" data-status-form>
+          <input type="hidden" name="appointmentId" />
+          <div class="admin-field">
+            <label for="appointment-status">Status</label>
+            <select id="appointment-status" name="status" required>
+              <option value="confirmed">Potwierdzona</option>
+              <option value="completed">Zakończona</option>
+              <option value="cancelled">Anulowana</option>
+              <option value="no_show">Nieobecność</option>
+            </select>
+          </div>
+          <p class="admin-warning" data-cancel-warning hidden>
+            Anulowanie rezerwacji natychmiast zwolni wszystkie zarezerwowane sloty.
+          </p>
+          <span class="admin-field__error" data-field-error="status"></span>
+          <button class="button" type="submit" data-status-submit>Zapisz status</button>
+        </form>
+      </div>
+    </dialog>
+
+    <dialog class="admin-dialog" data-service-dialog aria-labelledby="service-dialog-title">
+      <div class="admin-dialog__header">
+        <h2 id="service-dialog-title">Edytuj usługę</h2>
+        <button class="admin-dialog__close" type="button" data-dialog-close aria-label="Zamknij">
+          ×
+        </button>
+      </div>
+      <form class="admin-dialog__body admin-edit-form" data-service-form novalidate>
+        <input type="hidden" name="id" />
+        <div class="admin-field">
+          <label for="service-name">Nazwa</label>
+          <input id="service-name" name="name" type="text" maxlength="120" required />
+          <span class="admin-field__error" data-field-error="name"></span>
+        </div>
+        <div class="admin-field">
+          <label for="service-description">Opis</label>
+          <textarea id="service-description" name="description" rows="4" maxlength="1000" required
+          ></textarea>
+          <span class="admin-field__error" data-field-error="description"></span>
+        </div>
+        <div class="admin-edit-form__grid">
+          <div class="admin-field">
+            <label for="service-duration">Czas (min)</label>
+            <input
+              id="service-duration"
+              name="durationMinutes"
+              type="number"
+              min="15"
+              max="480"
+              step="15"
+              required
+            />
+            <span class="admin-field__error" data-field-error="durationMinutes"></span>
+          </div>
+          <div class="admin-field">
+            <label for="service-price">Cena (grosze)</label>
+            <input id="service-price" name="priceGrosze" type="number" min="0" step="1" required />
+            <span class="admin-field__error" data-field-error="priceGrosze"></span>
+          </div>
+          <div class="admin-field">
+            <label for="service-sort">Kolejność</label>
+            <input id="service-sort" name="sortOrder" type="number" min="0" step="1" required />
+            <span class="admin-field__error" data-field-error="sortOrder"></span>
+          </div>
+        </div>
+        <label class="admin-checkbox">
+          <input name="active" type="checkbox" />
+          <span>Usługa aktywna</span>
+        </label>
+        <button class="button" type="submit" data-service-submit>Zapisz usługę</button>
+      </form>
+    </dialog>
+
+    <dialog class="admin-dialog" data-barber-dialog aria-labelledby="barber-dialog-title">
+      <div class="admin-dialog__header">
+        <h2 id="barber-dialog-title">Edytuj barbera</h2>
+        <button class="admin-dialog__close" type="button" data-dialog-close aria-label="Zamknij">
+          ×
+        </button>
+      </div>
+      <form class="admin-dialog__body admin-edit-form" data-barber-form novalidate>
+        <input type="hidden" name="id" />
+        <div class="admin-field">
+          <label for="barber-name">Nazwa</label>
+          <input id="barber-name" name="name" type="text" maxlength="120" required />
+          <span class="admin-field__error" data-field-error="name"></span>
+        </div>
+        <div class="admin-field">
+          <label for="barber-bio">Opis</label>
+          <textarea id="barber-bio" name="bio" rows="5" maxlength="2000" required></textarea>
+          <span class="admin-field__error" data-field-error="bio"></span>
+        </div>
+        <div class="admin-field">
+          <label for="barber-image">Ścieżka obrazu</label>
+          <input id="barber-image" name="imagePath" type="text" maxlength="300" required />
+          <span class="admin-field__error" data-field-error="imagePath"></span>
+        </div>
+        <label class="admin-checkbox">
+          <input name="active" type="checkbox" />
+          <span>Barber aktywny</span>
+        </label>
+        <button class="button" type="submit" data-barber-submit>Zapisz barbera</button>
+      </form>
+    </dialog>
+
+    <dialog class="admin-dialog" data-working-hours-dialog aria-labelledby="hours-dialog-title">
+      <div class="admin-dialog__header">
+        <h2 id="hours-dialog-title">Edytuj godziny pracy</h2>
+        <button class="admin-dialog__close" type="button" data-dialog-close aria-label="Zamknij">
+          ×
+        </button>
+      </div>
+      <form class="admin-dialog__body admin-edit-form" data-working-hours-form novalidate>
+        <input type="hidden" name="id" />
+        <p class="admin-dialog__context" data-hours-context></p>
+        <div class="admin-edit-form__grid">
+          <div class="admin-field">
+            <label for="hours-start">Od</label>
+            <input id="hours-start" name="startTime" type="time" required />
+            <span class="admin-field__error" data-field-error="startTime"></span>
+          </div>
+          <div class="admin-field">
+            <label for="hours-end">Do</label>
+            <input id="hours-end" name="endTime" type="time" required />
+            <span class="admin-field__error" data-field-error="endTime"></span>
+          </div>
+        </div>
+        <label class="admin-checkbox">
+          <input name="active" type="checkbox" />
+          <span>Godziny aktywne</span>
+        </label>
+        <span class="admin-field__error" data-field-error="_root"></span>
+        <button class="button" type="submit" data-working-hours-submit>Zapisz godziny</button>
+      </form>
+    </dialog>
+
+    <noscript>
+      <p class="admin-alert admin-alert--error">
+        Panel administracyjny wymaga włączonej obsługi JavaScript.
+      </p>
+    </noscript>
+  </div>
+
+  <script>
+    import '../scripts/admin';
+  </script>
 </AdminLayout>

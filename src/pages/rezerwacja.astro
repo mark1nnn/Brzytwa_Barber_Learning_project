@@ -2,87 +2,306 @@
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import { siteConfig } from '@config/site';
 import BaseLayout from '@layouts/BaseLayout.astro';
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? '';
+const turnstileEnabled =
+  turnstileSiteKey.length > 0 && turnstileSiteKey !== 'replace-with-turnstile-site-key';
 ---
 
 <BaseLayout
   title="Rezerwacja wizyty — Brzytwa Barber Katowice"
-  description="Sprawdź planowany proces rezerwacji wizyty w Brzytwa Barber Katowice. System zapisów online jest obecnie przygotowywany."
+  description="Wybierz usługę, barbera i dogodny termin. Zarezerwuj wizytę online w Brzytwa Barber Katowice."
   canonicalPath="/rezerwacja"
 >
-  <header class="page-hero">
+  <header class="page-hero page-hero--compact">
     <div class="container">
       <Breadcrumbs items={[{ label: 'Rezerwacja' }]} />
-      <span class="status-badge">Strona informacyjna</span>
-      <p class="eyebrow" style="margin-top: var(--space-4)">Rezerwacja</p>
-      <h1>Zapisy online są w przygotowaniu.</h1>
+      <p class="eyebrow">Rezerwacja online</p>
+      <h1>Zarezerwuj swoją wizytę.</h1>
       <p class="lede">
-        Obecnie nie przyjmujemy jeszcze rezerwacji przez stronę. Poniżej pokazujemy docelowy, prosty
-        proces — bez pozorowania działającego formularza.
+        Wybierz usługę, barbera i wolny termin. Dostępność jest sprawdzana na bieżąco, a po zapisie
+        otrzymasz indywidualny kod rezerwacji.
       </p>
     </div>
   </header>
 
-  <section class="section">
-    <div class="container booking-grid">
-      <div class="info-card">
-        <h2>Jak będzie wyglądać rezerwacja?</h2>
-        <ol class="steps">
-          <li>
-            <h3>Wybierz usługę</h3>
-            <p>Zobaczysz cenę, czas trwania oraz dostępnych barberów.</p>
-          </li>
-          <li>
-            <h3>Wybierz barbera i termin</h3>
-            <p>Wolne godziny będą obliczane na serwerze w strefie Europe/Warsaw.</p>
-          </li>
-          <li>
-            <h3>Podaj dane kontaktowe</h3>
-            <p>Poprosimy tylko o dane potrzebne do obsługi wizyty i potwierdzenia.</p>
-          </li>
-          <li>
-            <h3>Odbierz potwierdzenie</h3>
-            <p>Po zapisie otrzymasz kod oraz najważniejsze informacje w wiadomości e-mail.</p>
-          </li>
-        </ol>
-        <span class="button" aria-disabled="true">Rezerwacja jeszcze nieaktywna</span>
+  <section class="section booking-section">
+    <div
+      class="container booking-layout"
+      data-booking-app
+      data-turnstile-enabled={String(turnstileEnabled)}
+      data-turnstile-site-key={turnstileSiteKey}
+    >
+      <div class="booking-main">
+        <form class="booking-form" data-booking-form novalidate>
+          <div
+            class="booking-alert booking-alert--error"
+            data-booking-error
+            role="alert"
+            aria-live="assertive"
+            hidden
+          >
+          </div>
+
+          <fieldset class="booking-step" data-service-fieldset>
+            <legend>
+              <span class="booking-step__number" aria-hidden="true">1</span>
+              Wybierz usługę
+            </legend>
+            <p class="booking-step__hint">
+              Cena i czas trwania zostaną pokazane przy każdej usłudze.
+            </p>
+            <div class="booking-options" data-services aria-live="polite">
+              <p class="booking-status" data-services-status>Ładowanie usług…</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="booking-step" data-barber-fieldset disabled>
+            <legend>
+              <span class="booking-step__number" aria-hidden="true">2</span>
+              Wybierz barbera
+            </legend>
+            <p class="booking-step__hint">
+              Pokażemy tylko barberów, którzy wykonują wybraną usługę.
+            </p>
+            <div class="booking-options booking-options--barbers" data-barbers aria-live="polite">
+              <p class="booking-status" data-barbers-status>Najpierw wybierz usługę.</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="booking-step" data-date-fieldset disabled>
+            <legend>
+              <span class="booking-step__number" aria-hidden="true">3</span>
+              Wybierz termin
+            </legend>
+            <div class="booking-field booking-field--date">
+              <label for="booking-date">Data wizyty</label>
+              <input id="booking-date" name="date" type="date" data-booking-date required />
+              <span class="booking-field__hint"
+                >Rezerwacje są dostępne maksymalnie 45 dni naprzód.</span
+              >
+            </div>
+
+            <div class="booking-slots-block">
+              <p class="booking-slots-label" id="booking-slots-label">Dostępne godziny</p>
+              <div
+                class="booking-slots"
+                data-slots
+                role="radiogroup"
+                aria-labelledby="booking-slots-label"
+                aria-live="polite"
+              >
+                <p class="booking-status" data-slots-status>
+                  Wybierz datę, aby zobaczyć wolne godziny.
+                </p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="booking-step booking-step--contact">
+            <legend>
+              <span class="booking-step__number" aria-hidden="true">4</span>
+              Dane kontaktowe
+            </legend>
+            <p class="booking-step__hint">
+              Użyjemy ich wyłącznie do obsługi i potwierdzenia wizyty.
+            </p>
+
+            <div class="booking-fields-grid">
+              <div class="booking-field booking-field--full">
+                <label for="customer-name">Imię i nazwisko</label>
+                <input
+                  id="customer-name"
+                  name="customerName"
+                  type="text"
+                  autocomplete="name"
+                  minlength="2"
+                  maxlength="100"
+                  required
+                />
+                <span
+                  class="booking-field__error"
+                  data-field-error="customerName"
+                  aria-live="polite"></span>
+              </div>
+
+              <div class="booking-field">
+                <label for="customer-phone">Telefon</label>
+                <input
+                  id="customer-phone"
+                  name="customerPhone"
+                  type="tel"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  placeholder="+48 123 456 789"
+                  maxlength="24"
+                  required
+                />
+                <span
+                  class="booking-field__error"
+                  data-field-error="customerPhone"
+                  aria-live="polite"></span>
+              </div>
+
+              <div class="booking-field">
+                <label for="customer-email">E-mail</label>
+                <input
+                  id="customer-email"
+                  name="customerEmail"
+                  type="email"
+                  autocomplete="email"
+                  maxlength="254"
+                  placeholder="jan@example.com"
+                  required
+                />
+                <span
+                  class="booking-field__error"
+                  data-field-error="customerEmail"
+                  aria-live="polite"></span>
+              </div>
+
+              <div class="booking-field booking-field--full">
+                <label for="customer-notes">Uwagi <span>(opcjonalnie)</span></label>
+                <textarea
+                  id="customer-notes"
+                  name="customerNotes"
+                  rows="4"
+                  maxlength="500"
+                  placeholder="Napisz, jeśli powinniśmy wiedzieć o czymś przed wizytą."></textarea>
+                <span
+                  class="booking-field__error"
+                  data-field-error="customerNotes"
+                  aria-live="polite"></span>
+              </div>
+            </div>
+
+            <label class="booking-consent">
+              <input name="privacyNoticeAccepted" type="checkbox" required />
+              <span>
+                Zapoznałem się z <a href="/polityka-prywatnosci">polityką prywatności</a> i akceptuję
+                przetwarzanie danych potrzebnych do obsługi rezerwacji.
+              </span>
+            </label>
+            <span
+              class="booking-field__error"
+              data-field-error="privacyNoticeAccepted"
+              aria-live="polite"></span>
+          </fieldset>
+
+          <fieldset class="booking-step booking-step--verification">
+            <legend>
+              <span class="booking-step__number" aria-hidden="true">5</span>
+              Potwierdź, że jesteś człowiekiem
+            </legend>
+            {
+              turnstileEnabled ? (
+                <div class="booking-turnstile">
+                  <div data-turnstile-widget />
+                  <p class="booking-status" data-turnstile-status aria-live="polite">
+                    Ładowanie zabezpieczenia…
+                  </p>
+                </div>
+              ) : (
+                <div class="booking-dev-notice" role="status">
+                  Turnstile nie jest skonfigurowany. Ustaw <code>PUBLIC_TURNSTILE_SITE_KEY</code>,
+                  aby włączyć wysyłanie formularza w tym środowisku.
+                </div>
+              )
+            }
+            <span class="booking-field__error" data-field-error="turnstileToken" aria-live="polite"
+            ></span>
+          </fieldset>
+
+          <div class="booking-submit">
+            <p>
+              Klikając „Rezerwuję”, potwierdzasz wybrany termin i akceptujesz
+              <a href="/regulamin-rezerwacji">regulamin rezerwacji</a>.
+            </p>
+            <button class="button" type="submit" data-booking-submit disabled>
+              <span data-submit-label>Rezerwuję wizytę</span>
+            </button>
+          </div>
+        </form>
+
+        <section
+          class="booking-success"
+          data-booking-success
+          aria-live="polite"
+          tabindex="-1"
+          hidden
+        >
+          <span class="booking-success__mark" aria-hidden="true">✓</span>
+          <p class="eyebrow">Rezerwacja potwierdzona</p>
+          <h2>Do zobaczenia w Brzytwa Barber.</h2>
+          <p>
+            Zachowaj kod rezerwacji: <strong class="booking-success__code" data-success-code
+            ></strong>
+          </p>
+          <dl class="booking-confirmation">
+            <div><dt>Usługa</dt><dd data-success-service></dd></div>
+            <div><dt>Barber</dt><dd data-success-barber></dd></div>
+            <div><dt>Termin</dt><dd data-success-date></dd></div>
+            <div><dt>Czas trwania</dt><dd data-success-duration></dd></div>
+            <div><dt>Cena</dt><dd data-success-price></dd></div>
+          </dl>
+          <p class="booking-success__email" data-success-email></p>
+          <button class="button button--secondary" type="button" data-booking-restart>
+            Zarezerwuj kolejną wizytę
+          </button>
+        </section>
       </div>
 
-      <aside class="info-card" aria-labelledby="booking-hours">
-        <p class="eyebrow">Godziny salonu</p>
-        <h2 id="booking-hours">Zaplanuj wizytę.</h2>
-        <dl class="hours">
-          {
-            siteConfig.businessHours.map((item) => (
-              <div>
-                <dt>{item.days}</dt>
-                <dd class:list={{ 'is-closed': item.closed }}>{item.hours}</dd>
-              </div>
-            ))
-          }
-        </dl>
-        <p class="placeholder-note" style="margin-top: var(--space-5)">
-          Dane kontaktowe mają obecnie wartości techniczne. Zostaną uzupełnione przed publikacją.
-        </p>
+      <aside class="booking-sidebar" aria-label="Podsumowanie rezerwacji">
+        <div class="info-card booking-summary">
+          <p class="eyebrow">Twoja wizyta</p>
+          <h2>Podsumowanie</h2>
+          <dl>
+            <div><dt>Usługa</dt><dd data-summary-service>Nie wybrano</dd></div>
+            <div><dt>Barber</dt><dd data-summary-barber>Nie wybrano</dd></div>
+            <div><dt>Data</dt><dd data-summary-date>Nie wybrano</dd></div>
+            <div><dt>Godzina</dt><dd data-summary-time>Nie wybrano</dd></div>
+            <div><dt>Cena</dt><dd data-summary-price>—</dd></div>
+          </dl>
+        </div>
+
+        <div class="info-card booking-hours-card">
+          <p class="eyebrow">Godziny salonu</p>
+          <h2>Zaplanuj wizytę</h2>
+          <dl class="hours hours--compact">
+            {
+              siteConfig.businessHours.map((item) => (
+                <div>
+                  <dt>{item.days}</dt>
+                  <dd class:list={{ 'is-closed': item.closed }}>{item.hours}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
       </aside>
     </div>
   </section>
 
-  <section class="section section--soft section--line">
-    <div class="container intro-grid">
-      <div>
-        <p class="eyebrow">Co dalej</p>
-        <h2>Bezpieczny zapis, nie atrapa.</h2>
-      </div>
-      <div>
-        <p>
-          Działający formularz pojawi się dopiero po przygotowaniu bazy D1, serwerowego silnika
-          dostępności, blokowania terminów, Turnstile i wysyłki potwierdzeń.
-        </p>
-        <p>
-          Dzięki temu wybrany termin nie będzie tylko wizualną obietnicą — zostanie zweryfikowany i
-          zarezerwowany po stronie serwera.
-        </p>
-      </div>
+  <noscript>
+    <div class="container">
+      <p class="booking-alert booking-alert--error">
+        Formularz rezerwacji wymaga włączonej obsługi JavaScript.
+      </p>
     </div>
-  </section>
+  </noscript>
+
+  {
+    turnstileEnabled && (
+      <script
+        is:inline
+        data-turnstile-script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        async
+        defer
+      />
+    )
+  }
+  <script>
+    import '../scripts/booking';
+  </script>
 </BaseLayout>

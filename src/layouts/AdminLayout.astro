@@ -21,6 +21,9 @@ const ogImage = await getImage({ src: heroImage, width: 1200, format: 'webp' });
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#111210" />
     <meta name="color-scheme" content="dark" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <Seo title={title} description={description} noindex ogImage={ogImage.src} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
@@ -30,7 +33,7 @@ const ogImage = await getImage({ src: heroImage, width: 1200, format: 'webp' });
       <a class="brand" href="/" aria-label="Wróć do strony Brzytwa Barber">
         <span class="brand__name">Brzytwa <span>Admin</span></span>
       </a>
-      <span class="status-badge status-badge--muted">Wersja demonstracyjna</span>
+      <span class="status-badge status-badge--muted">Cloudflare Access</span>
     </header>
     <main id="main-content" class="admin-main">
       <slot />
